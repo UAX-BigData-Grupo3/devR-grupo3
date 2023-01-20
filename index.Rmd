@@ -16,18 +16,18 @@ date: "2023-01-14"
 ## Instalación de los paquetes requeridos
 
 ```{r dependencias, results = FALSE}
-if(!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
-if(!require(data.table)) install.packages("data.table", repos = "http://cran.us.r-project.org")
+if (!require(caret)) install.packages("caret", repos = "http://cran.us.r-project.org")
+if (!require(data.table)) install.packages("data.table", repos = "http://cran.us.r-project.org")
 install.packages("ggthemes", repos = "http://cran.us.r-project.org")
-if(!require(scales)) 
+if (!require(scales)) 
   install.packages("scales", repos = "http://cran.us.r-project.org")
-if(!require(gridExtra)) 
+if (!require(gridExtra)) 
   install.packages("gridExtra", repos = "http://cran.us.r-project.org")
-if(!require(ggcorrplot))
+if (!require(ggcorrplot))
   install.packages("ggcorrplot", repos = "http://cran.us.r-project.org")
-if(!require(ggplot2))
+if (!require(ggplot2))
   install.packages("ggplot2", repos = "http://cran.us.r-project.org")
-if(!require(rpart.plot))
+if (!require(rpart.plot))
   install.packages("rpart.plot", repos = "http://cran.us.r-project.org")
 ```
 
@@ -40,17 +40,17 @@ library(grid)
 library(gridExtra)
 library(ggplot2)
 library(ggcorrplot)
-library(rpart)  
+library(rpart)
 ```
 
 ## Creación del dataset
 
 ```{r load_data}
-data.link = "/Users/paulagonzalezmataix/Documents/Máster Big Data/Máster UAX/PBD/"
-dfTrain <- fread(paste0(data.link,"train.csv"),sep=",",dec=".")
-dfTest <- fread(paste0(data.link,"test.csv"),sep=",",dec=".")
+data_link <- "/Users/paulagonzalezmataix/Documents/Máster Big Data/Máster UAX/PBD/"
+df_train <- fread(paste0(data.link, "train.csv"), sep = ",", dec = ".")
+df_test <- fread(paste0(data.link, "test.csv"), sep = ",", dec = ".")
 
-titanic  <- bind_rows(dfTrain, dfTest) # bind training & test data
+titanic  <- bind_rows(df_train, df_test) # bind training & test data
 view(titanic)
 ```
 
@@ -75,8 +75,8 @@ summary(titanic)
 ## Búsqueda de nulos
 
 ```{r search_nulls}
-titanic %>% 
-  summarise_all(funs(sum(is.na(.)))) %>% 
+titanic %>%
+  summarise_all(funs(sum(is.na(.)))) %>%
   t()
 ```
 
@@ -90,7 +90,7 @@ titanic %>%
 
 ```{r check_nulls}
 titanic %>% group_by(Sex) %>% filter(!is.na(Age)) %>%
-  ggplot(aes(Age,y=..count..)) +
-  geom_density(alpha = 0.2, bw = 0.75, position = "stack") + 
-  facet_grid(Sex ~.)
+  ggplot(aes(Age, y = ..count..)) +
+  geom_density(alpha = 0.2, bw = 0.75, position = "stack") +
+  facet_grid(Sex ~ .)
 ```
