@@ -17,6 +17,9 @@ date: "2023-01-14"
 
 ```{r dependencias, results = FALSE}
 install.packages("bookdown")
+install.packages("readr")
+install.packages("magrittr") # package installations are only needed the first time you use it
+install.packages("dplyr")    # alternative installation of the %>%
 if (!require(caret))
 install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
@@ -37,6 +40,9 @@ if (!require(rpart.plot))
 ### Carga de librerias
 
 ```{r libraries}
+library(magrittr) # needs to be run every time you start R and want to use %>%
+library(dplyr)    # alternatively, this also loads %>%
+library(readr)
 library(bookdown)
 library(caret)
 library(data.table)
@@ -49,13 +55,14 @@ library(rpart)
 
 ## Creación del dataset
 
-```{r load_data}
-data_link <- ""
-df_train <- fread(paste0(data.link, "train.csv"), sep = ",", dec = ".")
-df_test <- fread(paste0(data.link, "test.csv"), sep = ",", dec = ".")
+#import data1.csv located within my_data.zip df \<- read_csv(unzip("my_data.zip", "data1.csv"))
 
-titanic  <- bind_rows(df_train, df_test) # bind training & test data
-view(titanic)
+```{r load_data}
+data.link = "dataframe/"
+df_train <- fread(paste0(data.link,"train.csv"),sep=",",dec=".")
+df_test <- fread(paste0(data.link,"test.csv"),sep=",",dec=".")
+titanic  <- dplyr::bind_rows(df_train, df_test) # bind training & test data
+View(titanic)
 ```
 
 ## Chequeamos los datos
@@ -93,7 +100,7 @@ titanic %>%
 <!-- replace_na(as.list(colMeans(.,na.rm = TRUE))) -->
 
 ```{r check_nulls}
-titanic %>% group_by(Sex) %>% filter(!is.na(Age)) % > %
+titanic %>% group_by(Sex) %>% filter(!is.na(Age)) %>%
   ggplot(aes(Age, y = ..count..)) +
   geom_density(alpha = 0.2, bw = 0.75, position = "stack") +
   facet_grid(Sex ~ .)
