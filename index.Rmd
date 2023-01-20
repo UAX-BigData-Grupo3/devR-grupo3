@@ -48,7 +48,7 @@ library(rpart)
 ## Creación del dataset
 
 ```{r load_data}
-data_link <- "/Users/paulagonzalezmataix/Documents/Máster Big Data/Máster UAX/PBD/"
+data_link <- ""
 df_train <- fread(paste0(data.link, "train.csv"), sep = ",", dec = ".")
 df_test <- fread(paste0(data.link, "test.csv"), sep = ",", dec = ".")
 
