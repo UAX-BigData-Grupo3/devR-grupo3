@@ -37,6 +37,7 @@ if (!require(rpart.plot))
 ### Carga de librerias
 
 ```{r libraries}
+library(bookdown)
 library(caret)
 library(data.table)
 library(grid)
