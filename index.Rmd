@@ -73,13 +73,7 @@ str(titanic)
 
 ## Resumen estadístico
 
-```{r stadistical_summay}
-summary(titanic)
-```
-
-## Resumen estadístico
-
-```{r stadistical_summay}
+```{r stadistical_summary}
 summary(titanic)
 ```
 
