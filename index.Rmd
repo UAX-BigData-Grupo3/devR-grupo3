@@ -16,6 +16,7 @@ date: "2023-01-14"
 ## Instalación de los paquetes requeridos
 
 ```{r dependencias, results = FALSE}
+install.packages("evaluate")
 if (!require(caret))
 install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
