@@ -11,7 +11,7 @@ date: "2023-01-14"
 -   Paula González Mataix
 -   Cristian Sales Villa
 -   Rafael Castillo García
--   Diego Cristóbal Herreros
+-   Diego Cristóbal Herreros test
 
 ## Instalación de los paquetes requeridos
 
