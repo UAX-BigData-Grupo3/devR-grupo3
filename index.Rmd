@@ -19,7 +19,8 @@ date: "2023-01-14"
 install.packages("bookdown")
 install.packages("readr")
 install.packages("magrittr") # package installations are only needed the first time you use it
-install.packages("dplyr")    # alternative installation of the %>%
+install.packages("dplyr") # alternative installation of the %>%
+install.packages(tidyr)
 if (!require(caret))
 install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
@@ -51,6 +52,7 @@ library(gridExtra)
 library(ggplot2)
 library(ggcorrplot)
 library(rpart)
+library(tidyr)
 ```
 
 ## Creación del dataset
@@ -87,15 +89,29 @@ titanic %>%
 
 ### Buscamos si hay datos vacíos para estas variables
 
-<!-- Name, Sex, Ticket,Cabin, Embarked -->
-
-<!-- df %>% -->
-
-<!-- replace_na(as.list(colMeans(.,na.rm = TRUE))) -->
-
 ```{r check_nulls}
 titanic %>% group_by(Sex) %>% filter(!is.na(Age)) %>%
   ggplot(aes(Age, y = ..count..)) +
   geom_density(alpha = 0.2, bw = 0.75, position = "stack") +
   facet_grid(Sex ~ .)
+```
+
+## Comenzamos la limpieza de variables
+
+#### Age
+
+```{r}
+colSums(is.na(df_train))
+```
+
+```{r}
+df_train[is.na(df_train$Age),]
+```
+
+```{r}
+df_train <- df_train[!is.na(df_train$Age),]
+```
+
+```{r}
+df_train[is.na(df_train$Age),]
 ```
