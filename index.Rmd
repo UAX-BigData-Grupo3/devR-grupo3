@@ -90,10 +90,12 @@ titanic %>%
 ### Buscamos si hay datos vacíos para estas variables
 
 ```{r check_nulls}
-titanic %>% group_by(Sex) %>% filter(!is.na(Age)) %>%
-ggplot(aes(Age, y = ..count..)) +
-geom_density(alpha = 0.2, bw = 0.75, position = "stack") +
-facet_grid(Sex ~ .)
+titanic %>%
+  group_by(Sex) %>%
+  filter(!is.na(Age)) %>%
+  ggplot(aes(Age, y = ..count..)) +
+  geom_density(alpha = 0.2, bw = 0.75, position = "stack") +
+  facet_grid(Sex ~ .)
 ```
 
 ## Comenzamos la limpieza de variables
