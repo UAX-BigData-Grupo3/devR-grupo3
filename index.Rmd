@@ -18,7 +18,7 @@ date: "2023-01-14"
 ```{r dependencias, results = FALSE}
 install.packages("bookdown")
 install.packages("readr")
-install.packages("magrittr") # package installations are only needed the first time you use it
+install.packages("magrittr") 
 install.packages("dplyr") # alternative installation of the %>%
 install.packages(tidyr)
 if (!require(caret))
@@ -60,11 +60,11 @@ library(tidyr)
 #import data1.csv located within my_data.zip df \<- read_csv(unzip("my_data.zip", "data1.csv"))
 
 ```{r load_data}
-data.link = "dataframe/"
-df_train <- fread(paste0(data.link,"train.csv"),sep=",",dec=".")
-df_test <- fread(paste0(data.link,"test.csv"),sep=",",dec=".")
+data_link <- "dataframe/"
+df_train <- fread(paste0(data_link, "train.csv"), sep=",", dec=".")
+df_test <- fread(paste0(data_link, "test.csv"), sep=",", dec=".")
 titanic  <- dplyr::bind_rows(df_train, df_test) # bind training & test data
-#View(titanic)
+titanic
 ```
 
 ## Chequeamos los datos
@@ -105,13 +105,13 @@ colSums(is.na(df_train))
 ```
 
 ```{r}
-df_train[is.na(df_train$Age),]
+df_train[is.na(df_train$Age), ]
 ```
 
 ```{r}
-df_train <- df_train[!is.na(df_train$Age),]
+df_train <- df_train[!is.na(df_train$Age), ]
 ```
 
 ```{r}
-df_train[is.na(df_train$Age),]
+df_train[is.na(df_train$Age), ]
 ```
