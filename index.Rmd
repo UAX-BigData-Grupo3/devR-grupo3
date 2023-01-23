@@ -119,7 +119,8 @@ titanic[is.na(titanic$Age), ]
 ```{r}
 summary(titanic$SibSp)
 unique(titanic$SibSp)
-hist(titanic$SibSp, col = "blue", border = "black", xlab = "ibSp Unique Values", ylab = 'Frequency')
+hist(titanic$SibSp, col = "blue", border = "black", xlab = "ibSp Unique Values", 
+     ylab = "Frequency")
 ```
 
 #### Parch
@@ -147,6 +148,5 @@ unique(titanic$Pclass)
 ## Ver relación entre el sexo y los supervivientes
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-# First, let's look at the relationship between sex and survival:
-ggplot(data=titanic[], aes(x = Sex, fill = Survived)) + geom_bar()
+ggplot(data = titanic[], aes(x = Sex, fill = Survived)) + geom_bar()
 ```
