@@ -119,8 +119,8 @@ titanic[is.na(titanic$Age), ]
 ```{r}
 summary(titanic$SibSp)
 unique(titanic$SibSp)
-hist(titanic$SibSp, col = "blue", border = "black", xlab = "ibSp Unique Values", 
-     ylab = "Frequency")
+hist(titanic$SibSp, col = "blue", border = "black",
+     xlab = "ibSp Unique Values", ylab = "Frequency")
 ```
 
 #### Parch
