@@ -117,3 +117,5 @@ titanic <- titanic[!is.na(titanic$Age), ]
 ```{r}
 titanic[is.na(titanic$Age), ]
 ```
+
+Esto es una prueba de Cristian
