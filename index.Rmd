@@ -20,7 +20,6 @@ install.packages("bookdown")
 install.packages("readr")
 install.packages("magrittr")
 install.packages("dplyr") # alternative installation of the %>%
-install.packages(tidyr)
 if (!require(caret))
 install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
@@ -52,7 +51,6 @@ library(gridExtra)
 library(ggplot2)
 library(ggcorrplot)
 library(rpart)
-library(tidyr)
 ```
 
 ## Creación del dataset
