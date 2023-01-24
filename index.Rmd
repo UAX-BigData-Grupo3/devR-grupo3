@@ -15,7 +15,7 @@ date: "2023-01-14"
 
 ## Instalación de los paquetes requeridos
 
-```{r dependencias, results = FALSE}
+```{r dependencias, results = FALSE, echo=TRUE, message=FALSE, warning=FALSE}
 install.packages("bookdown")
 install.packages("readr")
 install.packages("magrittr")
@@ -39,7 +39,7 @@ if (!require(rpart.plot))
 
 ### Carga de librerias
 
-```{r libraries}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(magrittr) # needs to be run every time you start R and want to use %>%
 library(dplyr)    # alternatively, this also loads %>%
 library(readr)
@@ -54,8 +54,6 @@ library(rpart)
 ```
 
 ## Creación del dataset
-
-#import data1.csv located within my_data.zip df \<- read_csv(unzip("my_data.zip", "data1.csv"))
 
 ```{r load_data}
 data_link <- "dataframe/"
@@ -116,4 +114,39 @@ titanic <- titanic[!is.na(titanic$Age), ]
 titanic[is.na(titanic$Age), ]
 ```
 
-Esto es una prueba de Cristian
+### Sibp
+
+```{r}
+summary(titanic$SibSp)
+unique(titanic$SibSp)
+hist(titanic$SibSp, col = "blue", border = "black",
+     xlab = "ibSp Unique Values", ylab = "Frequency")
+```
+
+#### Parch
+
+```{r}
+#Parch
+
+summary(titanic$Parch)
+```
+
+#### Sex
+
+```{r}
+summary(titanic$Sex)
+unique(titanic$Sex)
+```
+
+#### PLCLASS
+
+```{r}
+summary(titanic$Pclass)
+unique(titanic$Pclass)
+```
+
+## Ver relación entre el sexo y los supervivientes
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data = titanic[], aes(x = Sex, fill = Survived)) + geom_bar()
+```
