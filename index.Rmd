@@ -99,19 +99,31 @@ titanic %>%
 #### Age
 
 ```{r}
+#Comprobamos si tenemos valores nulos y vemos que tenemos 418 en Survived y 263 en Age
 colSums(is.na(titanic))
 ```
 
 ```{r}
+#Visualizamos los pasajeros que tienen nulos en la Age
 titanic[is.na(titanic$Age), ]
 ```
 
 ```{r}
-titanic <- titanic[!is.na(titanic$Age), ]
+#A estos nulos de momento se decide aplicar la media de la edad del resto de pasajeros
+titanic$Age[is.na(titanic$Age)] <- mean(titanic$Age,na.rm = T)
 ```
 
 ```{r}
+#Comprobamos que ya no tenemos nulos en la edad
 titanic[is.na(titanic$Age), ]
+```
+
+```{r}
+#Visualizamos de nuevo nustro dataset
+titanic %>%
+  summarise_all(funs(sum(is.na(.)))) %>%
+  t()
+titanic
 ```
 
 ### Sibp
@@ -134,7 +146,16 @@ summary(titanic$Parch)
 #### Sex
 
 ```{r}
-summary(titanic$Sex)
+```
+
+```{r}
+#Codificamos el sexo como 0=female, 2=male
+titanic <- titanic %>% mutate(Sex = replace(Sex, Sex == "female", 0))
+titanic <- titanic %>% mutate(Sex = replace(Sex, Sex == "male", 1))
+titanic
+```
+
+``` {summary(titanic$sex)}
 unique(titanic$Sex)
 ```
 
