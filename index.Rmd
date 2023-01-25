@@ -96,44 +96,50 @@ titanic %>%
 
 ## Comenzamos la limpieza de variables
 
+```{r}
+#Creamos un dataset para las transformaciones
+titanic_transform <- data.frame(titanic)
+titanic_transform
+```
+
 #### Age
 
 ```{r}
 #Comprobamos si tenemos valores nulos y vemos
 #que tenemos 418 en Survived y 263 en Age
-colSums(is.na(titanic))
+colSums(is.na(titanic_transform))
 ```
 
 ```{r}
 #Visualizamos los pasajeros que tienen nulos en la Age
-titanic[is.na(titanic$Age), ]
+titanic_transform[is.na(titanic_transform$Age), ]
 ```
 
 ```{r}
 #A estos nulos de momento se decide
 #aplicar la media de la edad del resto de pasajeros
-titanic$Age[is.na(titanic$Age)] <- mean(titanic$Age, na.rm = TRUE)
+titanic_transform$Age[is.na(titanic_transform$Age)] <- mean(titanic_transform$Age, na.rm = T)
 ```
 
 ```{r}
 #Comprobamos que ya no tenemos nulos en la edad
-titanic[is.na(titanic$Age), ]
+titanic_transform[is.na(titanic_transform$Age), ]
 ```
 
 ```{r}
 #Visualizamos de nuevo nustro dataset
-titanic %>%
+titanic_transform %>%
   summarise_all(funs(sum(is.na(.)))) %>%
   t()
-titanic
+titanic_transform
 ```
 
 ### Sibp
 
 ```{r}
-summary(titanic$SibSp)
-unique(titanic$SibSp)
-hist(titanic$SibSp, col = "blue", border = "black",
+summary(titanic_transform$SibSp)
+unique(titanic_transform$SibSp)
+hist(titanic_transform$SibSp, col = "blue", border = "black",
      xlab = "ibSp Unique Values", ylab = "Frequency")
 ```
 
@@ -142,7 +148,7 @@ hist(titanic$SibSp, col = "blue", border = "black",
 ```{r}
 #Parch
 
-summary(titanic$Parch)
+summary(titanic_transform$Parch)
 ```
 
 #### Sex
@@ -152,24 +158,23 @@ summary(titanic$Parch)
 
 ```{r}
 #Codificamos el sexo como 0=female, 2=male
-titanic <- titanic %>% mutate(Sex = replace(Sex, Sex == "female", 0))
-titanic <- titanic %>% mutate(Sex = replace(Sex, Sex == "male", 1))
-titanic
+titanic_transform <- titanic_transform %>% mutate(Sex = replace(Sex, Sex == "female", 0))
+titanic_transform <- titanic_transform %>% mutate(Sex = replace(Sex, Sex == "male", 1))
 ```
 
 ``` {summary(titanic$sex)}
-unique(titanic$Sex)
+unique(titanic_transform$Sex)
 ```
 
 #### PLCLASS
 
 ```{r}
-summary(titanic$Pclass)
-unique(titanic$Pclass)
+summary(titanic_transform$Pclass)
+unique(titanic_transform$Pclass)
 ```
 
 ## Ver relación entre el sexo y los supervivientes
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
-ggplot(data = titanic[], aes(x = Sex, fill = Survived)) + geom_bar()
+ggplot(data = titanic_transform[], aes(x = Sex, fill = Survived)) + geom_bar()
 ```
