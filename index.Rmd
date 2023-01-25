@@ -118,7 +118,8 @@ titanic_transform[is.na(titanic_transform$Age), ]
 ```{r}
 #A estos nulos de momento se decide
 #aplicar la media de la edad del resto de pasajeros
-titanic_transform$Age[is.na(titanic_transform$Age)] <- mean(titanic_transform$Age, na.rm = T)
+titanic_transform$Age[is.na(titanic_transform$Age)] <- 
+mean(titanic_transform$Age, na.rm = TRUE)
 ```
 
 ```{r}
@@ -158,8 +159,10 @@ summary(titanic_transform$Parch)
 
 ```{r}
 #Codificamos el sexo como 0=female, 2=male
-titanic_transform <- titanic_transform %>% mutate(Sex = replace(Sex, Sex == "female", 0))
-titanic_transform <- titanic_transform %>% mutate(Sex = replace(Sex, Sex == "male", 1))
+titanic_transform <- titanic_transform %>% 
+  mutate(Sex = replace(Sex, Sex == "female", 0))
+titanic_transform <- titanic_transform %>% 
+  mutate(Sex = replace(Sex, Sex == "male", 1))
 ```
 
 ``` {summary(titanic$sex)}
