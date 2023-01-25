@@ -1,8 +1,6 @@
 ---
 title: "trabajo_grupal"
-output:
-  pdf_document: default
-  html_document: default
+output: html_document
 date: '2023-01-14'
 ---
 
@@ -191,72 +189,8 @@ unique(titanic_transform$Pclass)
 ggplot(data = titanic_transform[], aes(x = Sex, fill = Survived)) + geom_bar()
 ```
 
-
 ### Ejercicio 2: Presentación del paquete TM
 
-*Paula*
-acq
-content_transformer
-Corpus
-crude
-DataframeSource
-DirSource
-Docs
-findAssocs
-findFreqTerms
-findMostFreqTerms
-foreign
-getTokenizers
-getTransformations
-hpc
-inspect
-*Cristian*
-meta
-PCorpus
-PlainTextDocument
-plot
-readDataframe
-readDOC
-Reader
-readPDF
-readPlain
-readRCV1
-readReut21578XML
-readTagged
-readXML
-removeNumbers
-removePunctuation
-*Rafa*
-removeSparseTerms
-removeWords
-SimpleCorpus
-Source
-stemCompletion
-stemDocument
-stopwords
-stripWhitespace
-TermDocumentMatrix
-termFreq
-TextDocument
-tm_combine
-tm_filter
-tm_map
-tm_reduce
-*Diego*
-tm_term_score
-tokenizer
-URISource
-VCorpus
-VectorSource
-weightBin
-WeightFunction
-weightSMART
-weightTf
-weightTfIdf
-writeCorpus
-XMLSource
-XMLTextDocument
-Zipf_n_Heaps
-ZipSource
+***Paula*** acq content_transformer Corpus crude DataframeSource DirSource Docs findAssocs findFreqTerms findMostFreqTerms foreign getTokenizers getTransformations hpc inspect ***Cristian*** meta PCorpus PlainTextDocument plot readDataframe readDOC Reader readPDF readPlain readRCV1 readReut21578XML readTagged readXML removeNumbers removePunctuation ***Rafa*** removeSparseTerms removeWords SimpleCorpus Source stemCompletion stemDocument stopwords stripWhitespace TermDocumentMatrix termFreq TextDocument tm_combine tm_filter tm_map tm_reduce ***Diego*** tm_term_score tokenizer URISource VCorpus VectorSource weightBin WeightFunction weightSMART weightTf weightTfIdf writeCorpus XMLSource XMLTextDocument Zipf_n\_Heaps ZipSource
 
 ### Ejercicio 3: Estudio y presentación de dataset cáncer
