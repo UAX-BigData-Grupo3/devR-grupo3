@@ -99,7 +99,7 @@ titanic %>%
 #### Age
 
 ```{r}
-#Comprobamos si tenemos valores nulos y vemos 
+#Comprobamos si tenemos valores nulos y vemos
 #que tenemos 418 en Survived y 263 en Age
 colSums(is.na(titanic))
 ```
@@ -110,7 +110,7 @@ titanic[is.na(titanic$Age), ]
 ```
 
 ```{r}
-#A estos nulos de momento se decide 
+#A estos nulos de momento se decide
 #aplicar la media de la edad del resto de pasajeros
 titanic$Age[is.na(titanic$Age)] <- mean(titanic$Age, na.rm = TRUE)
 ```
