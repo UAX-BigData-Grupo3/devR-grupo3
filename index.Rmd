@@ -1,7 +1,9 @@
 ---
 title: "trabajo_grupal"
-output: html_document
-date: "2023-01-14"
+output:
+  pdf_document: default
+  html_document: default
+date: '2023-01-14'
 ---
 
 ## Trabajo grupal Programación para Big Data
@@ -13,18 +15,25 @@ date: "2023-01-14"
 -   Rafael Castillo García
 -   Diego Cristóbal Herreros
 
-## Instalación de los paquetes requeridos
+### Ejercicio 1: Preprocesamiento titanic
+
+#### Instalación de los paquetes requeridos
 
 ```{r dependencias, results = FALSE, echo=TRUE, message=FALSE, warning=FALSE}
-install.packages("bookdown")
-install.packages("readr")
-install.packages("magrittr")
-install.packages("dplyr") # alternative installation of the %>%
+if (!require(bookdown))
+  install.packages("bookdown", dependencies = TRUE)
+if (!require(readr))
+  install.packages("readr")
+if (!require(magrittr))
+  install.packages("magrittr")
+if (!require(dplyr))
+  install.packages("dplyr") # alternative installation of the %>%
 if (!require(caret))
-install.packages("caret", repos = "http://cran.us.r-project.org")
+  install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
-install.packages("data.table", repos = "http://cran.us.r-project.org")
-install.packages("ggthemes", repos = "http://cran.us.r-project.org")
+  install.packages("data.table", repos = "http://cran.us.r-project.org")
+if (!require(ggthemes))
+  install.packages("ggthemes", repos = "http://cran.us.r-project.org")
 if (!require(scales))
   install.packages("scales", repos = "http://cran.us.r-project.org")
 if (!require(gridExtra))
@@ -37,7 +46,7 @@ if (!require(rpart.plot))
   install.packages("rpart.plot", repos = "http://cran.us.r-project.org")
 ```
 
-### Carga de librerias
+#### Carga de librerias
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 library(magrittr) # needs to be run every time you start R and want to use %>%
@@ -53,7 +62,7 @@ library(ggcorrplot)
 library(rpart)
 ```
 
-## Creación del dataset
+#### Creación del dataset
 
 ```{r load_data}
 data_link <- "dataframe/"
@@ -63,19 +72,19 @@ titanic  <- dplyr::bind_rows(df_train, df_test) # bind training & test data
 titanic
 ```
 
-## Chequeamos los datos
+#### Chequeamos los datos
 
 ```{r show_data, echo=FALSE}
 str(titanic)
 ```
 
-## Resumen estadístico
+#### Resumen estadístico
 
 ```{r stadistical_summary}
 summary(titanic)
 ```
 
-## Búsqueda de nulos
+#### Búsqueda de nulos
 
 ```{r search_nulls}
 titanic %>%
@@ -83,7 +92,7 @@ titanic %>%
   t()
 ```
 
-### Buscamos si hay datos vacíos para estas variables
+#### Buscamos si hay datos vacíos para estas variables
 
 ```{r check_nulls}
 titanic %>%
@@ -94,7 +103,7 @@ titanic %>%
   facet_grid(Sex ~ .)
 ```
 
-## Comenzamos la limpieza de variables
+#### Comenzamos la limpieza de variables
 
 ```{r}
 #Creamos un dataset para las transformaciones
@@ -102,7 +111,7 @@ titanic_transform <- data.frame(titanic)
 titanic_transform
 ```
 
-#### Age
+**Age**
 
 ```{r}
 #Comprobamos si tenemos valores nulos y vemos
@@ -135,7 +144,7 @@ titanic_transform %>%
 titanic_transform
 ```
 
-### Sibp
+**Sibp**
 
 ```{r}
 summary(titanic_transform$SibSp)
@@ -144,7 +153,7 @@ hist(titanic_transform$SibSp, col = "blue", border = "black",
      xlab = "ibSp Unique Values", ylab = "Frequency")
 ```
 
-#### Parch
+**Parch**
 
 ```{r}
 #Parch
@@ -152,7 +161,7 @@ hist(titanic_transform$SibSp, col = "blue", border = "black",
 summary(titanic_transform$Parch)
 ```
 
-#### Sex
+**Sex**
 
 ```{r}
 ```
@@ -169,15 +178,85 @@ titanic_transform <- titanic_transform %>%
 unique(titanic_transform$Sex)
 ```
 
-#### PLCLASS
+**PLCLASS**
 
 ```{r}
 summary(titanic_transform$Pclass)
 unique(titanic_transform$Pclass)
 ```
 
-## Ver relación entre el sexo y los supervivientes
+#### Ver relación entre el sexo y los supervivientes
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 ggplot(data = titanic_transform[], aes(x = Sex, fill = Survived)) + geom_bar()
 ```
+
+
+### Ejercicio 2: Presentación del paquete TM
+
+*Paula*
+acq
+content_transformer
+Corpus
+crude
+DataframeSource
+DirSource
+Docs
+findAssocs
+findFreqTerms
+findMostFreqTerms
+foreign
+getTokenizers
+getTransformations
+hpc
+inspect
+*Cristian*
+meta
+PCorpus
+PlainTextDocument
+plot
+readDataframe
+readDOC
+Reader
+readPDF
+readPlain
+readRCV1
+readReut21578XML
+readTagged
+readXML
+removeNumbers
+removePunctuation
+*Rafa*
+removeSparseTerms
+removeWords
+SimpleCorpus
+Source
+stemCompletion
+stemDocument
+stopwords
+stripWhitespace
+TermDocumentMatrix
+termFreq
+TextDocument
+tm_combine
+tm_filter
+tm_map
+tm_reduce
+*Diego*
+tm_term_score
+tokenizer
+URISource
+VCorpus
+VectorSource
+weightBin
+WeightFunction
+weightSMART
+weightTf
+weightTfIdf
+writeCorpus
+XMLSource
+XMLTextDocument
+Zipf_n_Heaps
+ZipSource
+
+### Ejercicio 3: Estudio y presentación de dataset cáncer
