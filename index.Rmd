@@ -67,7 +67,7 @@ data_link <- "dataframe/"
 df_train <- fread(paste0(data_link, "train.csv"), sep = ",", dec = ".")
 df_test <- fread(paste0(data_link, "test.csv"), sep = ",", dec = ".")
 titanic  <- dplyr::bind_rows(df_train, df_test) # bind training & test data
-titanic
+head(titanic, 10)
 ```
 
 #### Chequeamos los datos
@@ -106,7 +106,7 @@ titanic %>%
 ```{r}
 #Creamos un dataset para las transformaciones
 titanic_transform <- data.frame(titanic)
-titanic_transform
+head(titanic_transform, 10)
 ```
 
 **Age**
@@ -139,7 +139,7 @@ titanic_transform[is.na(titanic_transform$Age), ]
 titanic_transform %>%
   summarise_all(funs(sum(is.na(.)))) %>%
   t()
-titanic_transform
+head(titanic_transform, 10)
 ```
 
 **Sibp**
