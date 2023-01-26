@@ -581,799 +581,29 @@ colSums(is.na(titanic_transform))</code></pre>
 ##       SibSp       Parch      Ticket        Fare       Cabin    Embarked 
 ##           0           0           0           1           0           0</code></pre>
 <pre class="r"><code>#Visualizamos los pasajeros que tienen nulos en la Age
-titanic_transform[is.na(titanic_transform$Age), ]</code></pre>
-<pre><code>##      PassengerId Survived Pclass
-## 6              6        0      3
-## 18            18        1      2
-## 20            20        1      3
-## 27            27        0      3
-## 29            29        1      3
-## 30            30        0      3
-## 32            32        1      1
-## 33            33        1      3
-## 37            37        1      3
-## 43            43        0      3
-## 46            46        0      3
-## 47            47        0      3
-## 48            48        1      3
-## 49            49        0      3
-## 56            56        1      1
-## 65            65        0      1
-## 66            66        1      3
-## 77            77        0      3
-## 78            78        0      3
-## 83            83        1      3
-## 88            88        0      3
-## 96            96        0      3
-## 102          102        0      3
-## 108          108        1      3
-## 110          110        1      3
-## 122          122        0      3
-## 127          127        0      3
-## 129          129        1      3
-## 141          141        0      3
-## 155          155        0      3
-## 159          159        0      3
-## 160          160        0      3
-## 167          167        1      1
-## 169          169        0      1
-## 177          177        0      3
-## 181          181        0      3
-## 182          182        0      2
-## 186          186        0      1
-## 187          187        1      3
-## 197          197        0      3
-## 199          199        1      3
-## 202          202        0      3
-## 215          215        0      3
-## 224          224        0      3
-## 230          230        0      3
-## 236          236        0      3
-## 241          241        0      3
-## 242          242        1      3
-## 251          251        0      3
-## 257          257        1      1
-## 261          261        0      3
-## 265          265        0      3
-## 271          271        0      1
-## 275          275        1      3
-## 278          278        0      2
-## 285          285        0      1
-## 296          296        0      1
-## 299          299        1      1
-## 301          301        1      3
-## 302          302        1      3
-## 304          304        1      2
-## 305          305        0      3
-## 307          307        1      1
-## 325          325        0      3
-## 331          331        1      3
-## 335          335        1      1
-## 336          336        0      3
-## 348          348        1      3
-## 352          352        0      1
-## 355          355        0      3
-## 359          359        1      3
-## 360          360        1      3
-## 365          365        0      3
-## 368          368        1      3
-## 369          369        1      3
-## 376          376        1      1
-## 385          385        0      3
-## 389          389        0      3
-## 410          410        0      3
-## 411          411        0      3
-## 412          412        0      3
-## 414          414        0      2
-## 416          416        0      3
-## 421          421        0      3
-## 426          426        0      3
-## 429          429        0      3
-## 432          432        1      3
-## 445          445        1      3
-## 452          452        0      3
-## 455          455        0      3
-## 458          458        1      1
-## 460          460        0      3
-## 465          465        0      3
-## 467          467        0      2
-## 469          469        0      3
-## 471          471        0      3
-## 476          476        0      1
-## 482          482        0      2
-## 486          486        0      3
-## 491          491        0      3
-## 496          496        0      3
-## 498          498        0      3
-## 503          503        0      3
-## 508          508        1      1
-## 512          512        0      3
-## 518          518        0      3
-## 523          523        0      3
-## 525          525        0      3
-## 528          528        0      1
-## 532          532        0      3
-## 534          534        1      3
-## 539          539        0      3
-## 548          548        1      2
-## 553          553        0      3
-## 558          558        0      1
-## 561          561        0      3
-## 564          564        0      3
-## 565          565        0      3
-## 569          569        0      3
-## 574          574        1      3
-## 579          579        0      3
-## 585          585        0      3
-## 590          590        0      3
-## 594          594        0      3
-## 597          597        1      2
-## 599          599        0      3
-## 602          602        0      3
-## 603          603        0      1
-## 612          612        0      3
-## 613          613        1      3
-## 614          614        0      3
-## 630          630        0      3
-## 634          634        0      1
-## 640          640        0      3
-## 644          644        1      3
-## 649          649        0      3
-## 651          651        0      3
-## 654          654        1      3
-## 657          657        0      3
-## 668          668        0      3
-## 670          670        1      1
-## 675          675        0      2
-## 681          681        0      3
-## 693          693        1      3
-## 698          698        1      3
-## 710          710        1      3
-## 712          712        0      1
-## 719          719        0      3
-## 728          728        1      3
-## 733          733        0      2
-## 739          739        0      3
-## 740          740        0      3
-## 741          741        1      1
-## 761          761        0      3
-## 767          767        0      1
-## 769          769        0      3
-## 774          774        0      3
-## 777          777        0      3
-## 779          779        0      3
-## 784          784        0      3
-## 791          791        0      3
-## 793          793        0      3
-## 794          794        0      1
-## 816          816        0      1
-## 826          826        0      3
-## 827          827        0      3
-## 829          829        1      3
-## 833          833        0      3
-## 838          838        0      3
-## 840          840        1      1
-## 847          847        0      3
-## 850          850        1      1
-## 860          860        0      3
-## 864          864        0      3
-## 869          869        0      3
-## 879          879        0      3
-## 889          889        0      3
-## 902          902       NA      3
-## 914          914       NA      1
-## 921          921       NA      3
-## 925          925       NA      3
-## 928          928       NA      3
-## 931          931       NA      3
-## 933          933       NA      1
-## 939          939       NA      3
-## 946          946       NA      2
-## 950          950       NA      3
-## 957          957       NA      2
-## 968          968       NA      3
-## 975          975       NA      3
-## 976          976       NA      2
-## 977          977       NA      3
-## 980          980       NA      3
-## 983          983       NA      3
-## 985          985       NA      3
-## 994          994       NA      3
-## 999          999       NA      3
-## 1000        1000       NA      3
-## 1003        1003       NA      3
-## 1008        1008       NA      3
-## 1013        1013       NA      3
-## 1016        1016       NA      3
-## 1019        1019       NA      3
-## 1024        1024       NA      3
-## 1025        1025       NA      3
-## 1038        1038       NA      1
-## 1040        1040       NA      1
-## 1043        1043       NA      3
-## 1052        1052       NA      3
-## 1055        1055       NA      3
-## 1060        1060       NA      1
-## 1062        1062       NA      3
-## 1065        1065       NA      3
-## 1075        1075       NA      3
-## 1080        1080       NA      3
-## 1083        1083       NA      1
-## 1091        1091       NA      3
-## 1092        1092       NA      3
-## 1097        1097       NA      1
-## 1103        1103       NA      3
-## 1108        1108       NA      3
-## 1111        1111       NA      3
-## 1117        1117       NA      3
-## 1119        1119       NA      3
-## 1125        1125       NA      3
-## 1135        1135       NA      3
-## 1136        1136       NA      3
-## 1141        1141       NA      3
-## 1147        1147       NA      3
-## 1148        1148       NA      3
-## 1157        1157       NA      3
-## 1158        1158       NA      1
-## 1159        1159       NA      3
-## 1160        1160       NA      3
-## 1163        1163       NA      3
-## 1165        1165       NA      3
-## 1166        1166       NA      3
-## 1174        1174       NA      3
-## 1178        1178       NA      3
-## 1180        1180       NA      3
-## 1181        1181       NA      3
-## 1182        1182       NA      1
-## 1184        1184       NA      3
-## 1189        1189       NA      3
-## 1193        1193       NA      2
-## 1196        1196       NA      3
-## 1204        1204       NA      3
-## 1224        1224       NA      3
-## 1231        1231       NA      3
-## 1234        1234       NA      3
-## 1236        1236       NA      3
-## 1249        1249       NA      3
-## 1250        1250       NA      3
-## 1257        1257       NA      3
-## 1258        1258       NA      3
-## 1272        1272       NA      3
-## 1274        1274       NA      3
-## 1276        1276       NA      2
-## 1300        1300       NA      3
-## 1302        1302       NA      3
-## 1305        1305       NA      3
-## 1308        1308       NA      3
-## 1309        1309       NA      3
-##                                                             Name    Sex Age
-## 6                                               Moran, Mr. James   male  NA
-## 18                                  Williams, Mr. Charles Eugene   male  NA
-## 20                                       Masselmani, Mrs. Fatima female  NA
-## 27                                       Emir, Mr. Farred Chehab   male  NA
-## 29                               O&#39;Dwyer, Miss. Ellen &quot;&quot;Nellie&quot;&quot; female  NA
-## 30                                           Todoroff, Mr. Lalio   male  NA
-## 32                Spencer, Mrs. William Augustus (Marie Eugenie) female  NA
-## 33                                      Glynn, Miss. Mary Agatha female  NA
-## 37                                              Mamee, Mr. Hanna   male  NA
-## 43                                           Kraeff, Mr. Theodor   male  NA
-## 46                                      Rogers, Mr. William John   male  NA
-## 47                                             Lennon, Mr. Denis   male  NA
-## 48                                     O&#39;Driscoll, Miss. Bridget female  NA
-## 49                                           Samaan, Mr. Youssef   male  NA
-## 56                                             Woolner, Mr. Hugh   male  NA
-## 65                                         Stewart, Mr. Albert A   male  NA
-## 66                                      Moubarek, Master. Gerios   male  NA
-## 77                                             Staneff, Mr. Ivan   male  NA
-## 78                                      Moutal, Mr. Rahamin Haim   male  NA
-## 83                                McDermott, Miss. Brigdet Delia female  NA
-## 88                                 Slocovski, Mr. Selman Francis   male  NA
-## 96                                   Shorney, Mr. Charles Joseph   male  NA
-## 102                           Petroff, Mr. Pastcho (&quot;&quot;Pentcho&quot;&quot;)   male  NA
-## 108                                       Moss, Mr. Albert Johan   male  NA
-## 110                                          Moran, Miss. Bertha female  NA
-## 122                                   Moore, Mr. Leonard Charles   male  NA
-## 127                                          McMahon, Mr. Martin   male  NA
-## 129                                            Peter, Miss. Anna female  NA
-## 141                                Boulos, Mrs. Joseph (Sultana) female  NA
-## 155                                        Olsen, Mr. Ole Martin   male  NA
-## 159                                          Smiljanic, Mr. Mile   male  NA
-## 160                                   Sage, Master. Thomas Henry   male  NA
-## 167                       Chibnall, Mrs. (Edith Martha Bowerman) female  NA
-## 169                                          Baumann, Mr. John D   male  NA
-## 177                                Lefebre, Master. Henry Forbes   male  NA
-## 181                                 Sage, Miss. Constance Gladys female  NA
-## 182                                             Pernot, Mr. Rene   male  NA
-## 186                                        Rood, Mr. Hugh Roscoe   male  NA
-## 187            O&#39;Brien, Mrs. Thomas (Johanna &quot;&quot;Hannah&quot;&quot; Godfrey) female  NA
-## 197                                          Mernagh, Mr. Robert   male  NA
-## 199                           Madigan, Miss. Margaret &quot;&quot;Maggie&quot;&quot; female  NA
-## 202                                          Sage, Mr. Frederick   male  NA
-## 215                                          Kiernan, Mr. Philip   male  NA
-## 224                                         Nenkoff, Mr. Christo   male  NA
-## 230                                      Lefebre, Miss. Mathilde female  NA
-## 236                                 Harknett, Miss. Alice Phoebe female  NA
-## 241                                        Zabour, Miss. Thamine female  NA
-## 242                             Murphy, Miss. Katherine &quot;&quot;Kate&quot;&quot; female  NA
-## 251                                       Reed, Mr. James George   male  NA
-## 257                               Thorne, Mrs. Gertrude Maybelle female  NA
-## 261                                            Smith, Mr. Thomas   male  NA
-## 265                                           Henry, Miss. Delia female  NA
-## 271                                        Cairns, Mr. Alexander   male  NA
-## 275                                 Healy, Miss. Hanora &quot;&quot;Nora&quot;&quot; female  NA
-## 278                                Parkes, Mr. Francis &quot;&quot;Frank&quot;&quot;   male  NA
-## 285                                   Smith, Mr. Richard William   male  NA
-## 296                                            Lewy, Mr. Ervin G   male  NA
-## 299                                        Saalfeld, Mr. Adolphe   male  NA
-## 301                   Kelly, Miss. Anna Katherine &quot;&quot;Annie Kate&quot;&quot; female  NA
-## 302                                           McCoy, Mr. Bernard   male  NA
-## 304                                          Keane, Miss. Nora A female  NA
-## 305                          Williams, Mr. Howard Hugh &quot;&quot;Harry&quot;&quot;   male  NA
-## 307                                      Fleming, Miss. Margaret female  NA
-## 325                                     Sage, Mr. George John Jr   male  NA
-## 331                                           McCoy, Miss. Agnes female  NA
-## 335           Frauenthal, Mrs. Henry William (Clara Heinsheimer) female  NA
-## 336                                           Denkoff, Mr. Mitto   male  NA
-## 348                    Davison, Mrs. Thomas Henry (Mary E Finck) female  NA
-## 352                       Williams-Lambert, Mr. Fletcher Fellows   male  NA
-## 355                                            Yousif, Mr. Wazli   male  NA
-## 359                                         McGovern, Miss. Mary female  NA
-## 360                          Mockler, Miss. Helen Mary &quot;&quot;Ellie&quot;&quot; female  NA
-## 365                                          O&#39;Brien, Mr. Thomas   male  NA
-## 368                               Moussa, Mrs. (Mantoura Boulos) female  NA
-## 369                                          Jermyn, Miss. Annie female  NA
-## 376                        Meyer, Mrs. Edgar Joseph (Leila Saks) female  NA
-## 385                                       Plotcharsky, Mr. Vasil   male  NA
-## 389                                         Sadlier, Mr. Matthew   male  NA
-## 410                                           Lefebre, Miss. Ida female  NA
-## 411                                           Sdycoff, Mr. Todor   male  NA
-## 412                                              Hart, Mr. Henry   male  NA
-## 414                               Cunningham, Mr. Alfred Fleming   male  NA
-## 416                      Meek, Mrs. Thomas (Annie Louise Rowley) female  NA
-## 421                                       Gheorgheff, Mr. Stanio   male  NA
-## 426                                       Wiseman, Mr. Phillippe   male  NA
-## 429                                             Flynn, Mr. James   male  NA
-## 432            Thorneycroft, Mrs. Percival (Florence Kate White) female  NA
-## 445                            Johannesen-Bratthammer, Mr. Bernt   male  NA
-## 452                              Hagland, Mr. Ingvald Olai Olsen   male  NA
-## 455                                          Peduzzi, Mr. Joseph   male  NA
-## 458                            Kenyon, Mrs. Frederick R (Marion) female  NA
-## 460                                        O&#39;Connor, Mr. Maurice   male  NA
-## 465                                           Maisner, Mr. Simon   male  NA
-## 467                                        Campbell, Mr. William   male  NA
-## 469                                           Scanlan, Mr. James   male  NA
-## 471                                            Keefe, Mr. Arthur   male  NA
-## 476                                  Clifford, Mr. George Quincy   male  NA
-## 482                           Frost, Mr. Anthony Wood &quot;&quot;Archie&quot;&quot;   male  NA
-## 486                                       Lefebre, Miss. Jeannie female  NA
-## 491                         Hagland, Mr. Konrad Mathias Reiersen   male  NA
-## 496                                        Yousseff, Mr. Gerious   male  NA
-## 498                              Shellard, Mr. Frederick William   male  NA
-## 503                               O&#39;Sullivan, Miss. Bridget Mary female  NA
-## 508              Bradley, Mr. George (&quot;&quot;George Arthur Brayton&quot;&quot;)   male  NA
-## 512                                            Webber, Mr. James   male  NA
-## 518                                            Ryan, Mr. Patrick   male  NA
-## 523                                           Lahoud, Mr. Sarkis   male  NA
-## 525                                            Kassem, Mr. Fared   male  NA
-## 528                                           Farthing, Mr. John   male  NA
-## 532                                            Toufik, Mr. Nakli   male  NA
-## 534                       Peter, Mrs. Catherine (Catherine Rizk) female  NA
-## 539                                     Risien, Mr. Samuel Beard   male  NA
-## 548                                   Padro y Manent, Mr. Julian   male  NA
-## 553                                         O&#39;Brien, Mr. Timothy   male  NA
-## 558                                          Robbins, Mr. Victor   male  NA
-## 561                                     Morrow, Mr. Thomas Rowan   male  NA
-## 564                                            Simmons, Mr. John   male  NA
-## 565                               Meanwell, Miss. (Marion Ogden) female  NA
-## 569                                          Doharr, Mr. Tannous   male  NA
-## 574                                            Kelly, Miss. Mary female  NA
-## 579                             Caram, Mrs. Joseph (Maria Elias) female  NA
-## 585                                          Paulner, Mr. Uscher   male  NA
-## 590                                          Murdlin, Mr. Joseph   male  NA
-## 594                                           Bourke, Miss. Mary female  NA
-## 597                                   Leitch, Miss. Jessie Wills female  NA
-## 599                                            Boulos, Mr. Hanna   male  NA
-## 602                                         Slabenoff, Mr. Petco   male  NA
-## 603                                    Harrington, Mr. Charles H   male  NA
-## 612                                        Jardin, Mr. Jose Neto   male  NA
-## 613                                  Murphy, Miss. Margaret Jane female  NA
-## 614                                             Horgan, Mr. John   male  NA
-## 630                                     O&#39;Connell, Mr. Patrick D   male  NA
-## 634                                Parr, Mr. William Henry Marsh   male  NA
-## 640                                   Thorneycroft, Mr. Percival   male  NA
-## 644                                              Foo, Mr. Choong   male  NA
-## 649                                           Willey, Mr. Edward   male  NA
-## 651                                            Mitkoff, Mr. Mito   male  NA
-## 654                              O&#39;Leary, Miss. Hanora &quot;&quot;Norah&quot;&quot; female  NA
-## 657                                        Radeff, Mr. Alexander   male  NA
-## 668                                   Rommetvedt, Mr. Knud Paust   male  NA
-## 670            Taylor, Mrs. Elmer Zebley (Juliet Cummins Wright) female  NA
-## 675                                   Watson, Mr. Ennis Hastings   male  NA
-## 681                                          Peters, Miss. Katie female  NA
-## 693                                                 Lam, Mr. Ali   male  NA
-## 698                           Mullens, Miss. Katherine &quot;&quot;Katie&quot;&quot; female  NA
-## 710          Moubarek, Master. Halim Gonios (&quot;&quot;William George&quot;&quot;)   male  NA
-## 712                                           Klaber, Mr. Herman   male  NA
-## 719                                          McEvoy, Mr. Michael   male  NA
-## 728                                     Mannion, Miss. Margareth female  NA
-## 733                                         Knight, Mr. Robert J   male  NA
-## 739                                           Ivanoff, Mr. Kanio   male  NA
-## 740                                           Nankoff, Mr. Minko   male  NA
-## 741                                  Hawksford, Mr. Walter James   male  NA
-## 761                                           Garfirth, Mr. John   male  NA
-## 767                                    Brewe, Dr. Arthur Jackson   male  NA
-## 769                                          Moran, Mr. Daniel J   male  NA
-## 774                                              Elias, Mr. Dibo   male  NA
-## 777                                             Tobin, Mr. Roger   male  NA
-## 779                                      Kilgannon, Mr. Thomas J   male  NA
-## 784                                       Johnston, Mr. Andrew G   male  NA
-## 791                                   Keane, Mr. Andrew &quot;&quot;Andy&quot;&quot;   male  NA
-## 793                                      Sage, Miss. Stella Anna female  NA
-## 794                                     Hoyt, Mr. William Fisher   male  NA
-## 816                                             Fry, Mr. Richard   male  NA
-## 826                                              Flynn, Mr. John   male  NA
-## 827                                                 Lam, Mr. Len   male  NA
-## 829                                 McCormack, Mr. Thomas Joseph   male  NA
-## 833                                               Saad, Mr. Amin   male  NA
-## 838                                          Sirota, Mr. Maurice   male  NA
-## 840                                         Marechal, Mr. Pierre   male  NA
-## 847                                     Sage, Mr. Douglas Bullen   male  NA
-## 850                 Goldenberg, Mrs. Samuel L (Edwiga Grabowska) female  NA
-## 860                                             Razi, Mr. Raihed   male  NA
-## 864                          Sage, Miss. Dorothy Edith &quot;&quot;Dolly&quot;&quot; female  NA
-## 869                                  van Melkebeke, Mr. Philemon   male  NA
-## 879                                           Laleff, Mr. Kristo   male  NA
-## 889                   Johnston, Miss. Catherine Helen &quot;&quot;Carrie&quot;&quot; female  NA
-## 902                                             Ilieff, Mr. Ylio   male  NA
-## 914                         Flegenheim, Mrs. Alfred (Antoinette) female  NA
-## 921                                            Samaan, Mr. Elias   male  NA
-## 925          Johnston, Mrs. Andrew G (Elizabeth Lily&quot;&quot; Watson)&quot;&quot; female  NA
-## 928                                          Roth, Miss. Sarah A female  NA
-## 931                                                Hee, Mr. Ling   male  NA
-## 933                                  Franklin, Mr. Thomas Parham   male  NA
-## 939                                     Shaughnessy, Mr. Patrick   male  NA
-## 946                            Mangiavacchi, Mr. Serafino Emilio   male  NA
-## 950                                    Davison, Mr. Thomas Henry   male  NA
-## 957          Corey, Mrs. Percy C (Mary Phyllis Elizabeth Miller) female  NA
-## 968                                             Miles, Mr. Frank   male  NA
-## 975                                         Demetri, Mr. Marinko   male  NA
-## 976                                        Lamb, Mr. John Joseph   male  NA
-## 977                                           Khalil, Mr. Betros   male  NA
-## 980                                      O&#39;Donoghue, Ms. Bridget female  NA
-## 983                                           Pedersen, Mr. Olaf   male  NA
-## 985                                            Guest, Mr. Robert   male  NA
-## 994                                           Foley, Mr. William   male  NA
-## 999                                             Ryan, Mr. Edward   male  NA
-## 1000                          Willer, Mr. Aaron (Abi Weller&quot;&quot;)&quot;&quot;   male  NA
-## 1003                                  Shine, Miss. Ellen Natalia female  NA
-## 1008                                            Thomas, Mr. John   male  NA
-## 1013                                           Kiernan, Mr. John   male  NA
-## 1016                                           Kennedy, Mr. John   male  NA
-## 1019                                         McCoy, Miss. Alicia female  NA
-## 1024                               Lefebre, Mrs. Frank (Frances) female  NA
-## 1025                                       Thomas, Mr. Charles P   male  NA
-## 1038                                 Hilliard, Mr. Herbert Henry   male  NA
-## 1040                                   Crafton, Mr. John Bertram   male  NA
-## 1043                                        Matinoff, Mr. Nicola   male  NA
-## 1052                                          Smyth, Miss. Julia female  NA
-## 1055                                          Pearce, Mr. Ernest   male  NA
-## 1060 Cassebeer, Mrs. Henry Arthur Jr (Eleanor Genevieve Fosdick) female  NA
-## 1062                                          Lithman, Mr. Simon   male  NA
-## 1065                                            Torfa, Mr. Assad   male  NA
-## 1075                                           Lane, Mr. Patrick   male  NA
-## 1080                                             Sage, Miss. Ada female  NA
-## 1083                                      Salomon, Mr. Abraham L   male  NA
-## 1091                     Rasmussen, Mrs. (Lena Jacobsen Solvang) female  NA
-## 1092                                          Murphy, Miss. Nora female  NA
-## 1097                                   Omont, Mr. Alfred Fernand   male  NA
-## 1103                                           Finoli, Mr. Luigi   male  NA
-## 1108                                  Mahon, Miss. Bridget Delia female  NA
-## 1111                             Thomson, Mr. Alexander Morrison   male  NA
-## 1117          Moubarek, Mrs. George (Omine Amenia&quot;&quot; Alexander)&quot;&quot; female  NA
-## 1119                                      McNeill, Miss. Bridget female  NA
-## 1125                                        Linehan, Mr. Michael   male  NA
-## 1135                                          Hyman, Mr. Abraham   male  NA
-## 1136                 Johnston, Master. William Arthur Willie&quot;&quot;&quot;&quot;   male  NA
-## 1141                 Khalil, Mrs. Betros (Zahie Maria&quot;&quot; Elias)&quot;&quot; female  NA
-## 1147                                  MacKay, Mr. George William   male  NA
-## 1148                                             Mahon, Mr. John   male  NA
-## 1157                                       Lyntakoff, Mr. Stanko   male  NA
-## 1158                       Chisholm, Mr. Roderick Robert Crispin   male  NA
-## 1159                                 Warren, Mr. Charles William   male  NA
-## 1160                                 Howard, Miss. May Elizabeth female  NA
-## 1163                                            Fox, Mr. Patrick   male  NA
-## 1165                                          Lennon, Miss. Mary female  NA
-## 1166                                       Saade, Mr. Jean Nassr   male  NA
-## 1174                                       Fleming, Miss. Honora female  NA
-## 1178                      Franklin, Mr. Charles (Charles Fardon)   male  NA
-## 1180                                     Mardirosian, Mr. Sarkis   male  NA
-## 1181                                            Ford, Mr. Arthur   male  NA
-## 1182                         Rheims, Mr. George Alexander Lucien   male  NA
-## 1184                                           Nasr, Mr. Mustafa   male  NA
-## 1189                                           Samaan, Mr. Hanna   male  NA
-## 1193                                         Malachard, Mr. Noel   male  NA
-## 1196                         McCarthy, Miss. Catherine Katie&quot;&quot;&quot;&quot; female  NA
-## 1204                                         Sadowitz, Mr. Harry   male  NA
-## 1224                                         Thomas, Mr. Tannous   male  NA
-## 1231                                       Betros, Master. Seman   male  NA
-## 1234                                       Sage, Mr. John George   male  NA
-## 1236                         van Billiard, Master. James William   male  NA
-## 1249                                         Lockyer, Mr. Edward   male  NA
-## 1250                                        O&#39;Keefe, Mr. Patrick   male  NA
-## 1257                              Sage, Mrs. John (Annie Bullen) female  NA
-## 1258                                           Caram, Mr. Joseph   male  NA
-## 1272                                       O&#39;Connor, Mr. Patrick   male  NA
-## 1274                                  Risien, Mrs. Samuel (Emma) female  NA
-## 1276                            Wheeler, Mr. Edwin Frederick&quot;&quot;&quot;&quot;   male  NA
-## 1300                           Riordan, Miss. Johanna Hannah&quot;&quot;&quot;&quot; female  NA
-## 1302                                      Naughton, Miss. Hannah female  NA
-## 1305                                          Spector, Mr. Woolf   male  NA
-## 1308                                         Ware, Mr. Frederick   male  NA
-## 1309                                    Peter, Master. Michael J   male  NA
-##      SibSp Parch             Ticket     Fare Cabin Embarked
-## 6        0     0             330877   8.4583              Q
-## 18       0     0             244373  13.0000              S
-## 20       0     0               2649   7.2250              C
-## 27       0     0               2631   7.2250              C
-## 29       0     0             330959   7.8792              Q
-## 30       0     0             349216   7.8958              S
-## 32       1     0           PC 17569 146.5208   B78        C
-## 33       0     0             335677   7.7500              Q
-## 37       0     0               2677   7.2292              C
-## 43       0     0             349253   7.8958              C
-## 46       0     0    S.C./A.4. 23567   8.0500              S
-## 47       1     0             370371  15.5000              Q
-## 48       0     0              14311   7.7500              Q
-## 49       2     0               2662  21.6792              C
-## 56       0     0              19947  35.5000   C52        S
-## 65       0     0           PC 17605  27.7208              C
-## 66       1     1               2661  15.2458              C
-## 77       0     0             349208   7.8958              S
-## 78       0     0             374746   8.0500              S
-## 83       0     0             330932   7.7875              Q
-## 88       0     0    SOTON/OQ 392086   8.0500              S
-## 96       0     0             374910   8.0500              S
-## 102      0     0             349215   7.8958              S
-## 108      0     0             312991   7.7750              S
-## 110      1     0             371110  24.1500              Q
-## 122      0     0          A4. 54510   8.0500              S
-## 127      0     0             370372   7.7500              Q
-## 129      1     1               2668  22.3583 F E69        C
-## 141      0     2               2678  15.2458              C
-## 155      0     0          Fa 265302   7.3125              S
-## 159      0     0             315037   8.6625              S
-## 160      8     2           CA. 2343  69.5500              S
-## 167      0     1             113505  55.0000   E33        S
-## 169      0     0           PC 17318  25.9250              S
-## 177      3     1               4133  25.4667              S
-## 181      8     2           CA. 2343  69.5500              S
-## 182      0     0      SC/PARIS 2131  15.0500              C
-## 186      0     0             113767  50.0000   A32        S
-## 187      1     0             370365  15.5000              Q
-## 197      0     0             368703   7.7500              Q
-## 199      0     0             370370   7.7500              Q
-## 202      8     2           CA. 2343  69.5500              S
-## 215      1     0             367229   7.7500              Q
-## 224      0     0             349234   7.8958              S
-## 230      3     1               4133  25.4667              S
-## 236      0     0         W./C. 6609   7.5500              S
-## 241      1     0               2665  14.4542              C
-## 242      1     0             367230  15.5000              Q
-## 251      0     0             362316   7.2500              S
-## 257      0     0           PC 17585  79.2000              C
-## 261      0     0             384461   7.7500              Q
-## 265      0     0             382649   7.7500              Q
-## 271      0     0             113798  31.0000              S
-## 275      0     0             370375   7.7500              Q
-## 278      0     0             239853   0.0000              S
-## 285      0     0             113056  26.0000   A19        S
-## 296      0     0           PC 17612  27.7208              C
-## 299      0     0              19988  30.5000  C106        S
-## 301      0     0               9234   7.7500              Q
-## 302      2     0             367226  23.2500              Q
-## 304      0     0             226593  12.3500  E101        Q
-## 305      0     0           A/5 2466   8.0500              S
-## 307      0     0              17421 110.8833              C
-## 325      8     2           CA. 2343  69.5500              S
-## 331      2     0             367226  23.2500              Q
-## 335      1     0           PC 17611 133.6500              S
-## 336      0     0             349225   7.8958              S
-## 348      1     0             386525  16.1000              S
-## 352      0     0             113510  35.0000  C128        S
-## 355      0     0               2647   7.2250              C
-## 359      0     0             330931   7.8792              Q
-## 360      0     0             330980   7.8792              Q
-## 365      1     0             370365  15.5000              Q
-## 368      0     0               2626   7.2292              C
-## 369      0     0              14313   7.7500              Q
-## 376      1     0           PC 17604  82.1708              C
-## 385      0     0             349227   7.8958              S
-## 389      0     0             367655   7.7292              Q
-## 410      3     1               4133  25.4667              S
-## 411      0     0             349222   7.8958              S
-## 412      0     0             394140   6.8583              Q
-## 414      0     0             239853   0.0000              S
-## 416      0     0             343095   8.0500              S
-## 421      0     0             349254   7.8958              C
-## 426      0     0         A/4. 34244   7.2500              S
-## 429      0     0             364851   7.7500              Q
-## 432      1     0             376564  16.1000              S
-## 445      0     0              65306   8.1125              S
-## 452      1     0              65303  19.9667              S
-## 455      0     0           A/5 2817   8.0500              S
-## 458      1     0              17464  51.8625   D21        S
-## 460      0     0             371060   7.7500              Q
-## 465      0     0           A/S 2816   8.0500              S
-## 467      0     0             239853   0.0000              S
-## 469      0     0              36209   7.7250              Q
-## 471      0     0             323592   7.2500              S
-## 476      0     0             110465  52.0000   A14        S
-## 482      0     0             239854   0.0000              S
-## 486      3     1               4133  25.4667              S
-## 491      1     0              65304  19.9667              S
-## 496      0     0               2627  14.4583              C
-## 498      0     0          C.A. 6212  15.1000              S
-## 503      0     0             330909   7.6292              Q
-## 508      0     0             111427  26.5500              S
-## 512      0     0   SOTON/OQ 3101316   8.0500              S
-## 518      0     0             371110  24.1500              Q
-## 523      0     0               2624   7.2250              C
-## 525      0     0               2700   7.2292              C
-## 528      0     0           PC 17483 221.7792   C95        S
-## 532      0     0               2641   7.2292              C
-## 534      0     2               2668  22.3583              C
-## 539      0     0             364498  14.5000              S
-## 548      0     0      SC/PARIS 2146  13.8625              C
-## 553      0     0             330979   7.8292              Q
-## 558      0     0           PC 17757 227.5250              C
-## 561      0     0             372622   7.7500              Q
-## 564      0     0    SOTON/OQ 392082   8.0500              S
-## 565      0     0  SOTON/O.Q. 392087   8.0500              S
-## 569      0     0               2686   7.2292              C
-## 574      0     0              14312   7.7500              Q
-## 579      1     0               2689  14.4583              C
-## 585      0     0               3411   8.7125              C
-## 590      0     0         A./5. 3235   8.0500              S
-## 594      0     2             364848   7.7500              Q
-## 597      0     0             248727  33.0000              S
-## 599      0     0               2664   7.2250              C
-## 602      0     0             349214   7.8958              S
-## 603      0     0             113796  42.4000              S
-## 612      0     0 SOTON/O.Q. 3101305   7.0500              S
-## 613      1     0             367230  15.5000              Q
-## 614      0     0             370377   7.7500              Q
-## 630      0     0             334912   7.7333              Q
-## 634      0     0             112052   0.0000              S
-## 640      1     0             376564  16.1000              S
-## 644      0     0               1601  56.4958              S
-## 649      0     0      S.O./P.P. 751   7.5500              S
-## 651      0     0             349221   7.8958              S
-## 654      0     0             330919   7.8292              Q
-## 657      0     0             349223   7.8958              S
-## 668      0     0             312993   7.7750              S
-## 670      1     0              19996  52.0000  C126        S
-## 675      0     0             239856   0.0000              S
-## 681      0     0             330935   8.1375              Q
-## 693      0     0               1601  56.4958              S
-## 698      0     0              35852   7.7333              Q
-## 710      1     1               2661  15.2458              C
-## 712      0     0             113028  26.5500  C124        S
-## 719      0     0              36568  15.5000              Q
-## 728      0     0              36866   7.7375              Q
-## 733      0     0             239855   0.0000              S
-## 739      0     0             349201   7.8958              S
-## 740      0     0             349218   7.8958              S
-## 741      0     0              16988  30.0000   D45        S
-## 761      0     0             358585  14.5000              S
-## 767      0     0             112379  39.6000              C
-## 769      1     0             371110  24.1500              Q
-## 774      0     0               2674   7.2250              C
-## 777      0     0             383121   7.7500   F38        Q
-## 779      0     0              36865   7.7375              Q
-## 784      1     2         W./C. 6607  23.4500              S
-## 791      0     0              12460   7.7500              Q
-## 793      8     2           CA. 2343  69.5500              S
-## 794      0     0           PC 17600  30.6958              C
-## 816      0     0             112058   0.0000  B102        S
-## 826      0     0             368323   6.9500              Q
-## 827      0     0               1601  56.4958              S
-## 829      0     0             367228   7.7500              Q
-## 833      0     0               2671   7.2292              C
-## 838      0     0             392092   8.0500              S
-## 840      0     0              11774  29.7000   C47        C
-## 847      8     2           CA. 2343  69.5500              S
-## 850      1     0              17453  89.1042   C92        C
-## 860      0     0               2629   7.2292              C
-## 864      8     2           CA. 2343  69.5500              S
-## 869      0     0             345777   9.5000              S
-## 879      0     0             349217   7.8958              S
-## 889      1     2         W./C. 6607  23.4500              S
-## 902      0     0             349220   7.8958              S
-## 914      0     0           PC 17598  31.6833              S
-## 921      2     0               2662  21.6792              C
-## 925      1     2         W./C. 6607  23.4500              S
-## 928      0     0             342712   8.0500              S
-## 931      0     0               1601  56.4958              S
-## 933      0     0             113778  26.5500   D34        S
-## 939      0     0             370374   7.7500              Q
-## 946      0     0        SC/A.3 2861  15.5792              C
-## 950      1     0             386525  16.1000              S
-## 957      0     0       F.C.C. 13534  21.0000              S
-## 968      0     0             359306   8.0500              S
-## 975      0     0             349238   7.8958              S
-## 976      0     0             240261  10.7083              Q
-## 977      1     0               2660  14.4542              C
-## 980      0     0             364856   7.7500              Q
-## 983      0     0             345498   7.7750              S
-## 985      0     0             376563   8.0500              S
-## 994      0     0             365235   7.7500              Q
-## 999      0     0             383162   7.7500              Q
-## 1000     0     0               3410   8.7125              S
-## 1003     0     0             330968   7.7792              Q
-## 1008     0     0               2681   6.4375              C
-## 1013     1     0             367227   7.7500              Q
-## 1016     0     0             368783   7.7500              Q
-## 1019     2     0             367226  23.2500              Q
-## 1024     0     4               4133  25.4667              S
-## 1025     1     0               2621   6.4375              C
-## 1038     0     0              17463  51.8625   E46        S
-## 1040     0     0             113791  26.5500              S
-## 1043     0     0             349255   7.8958              C
-## 1052     0     0             335432   7.7333              Q
-## 1055     0     0             343271   7.0000              S
-## 1060     0     0              17770  27.7208              C
-## 1062     0     0      S.O./P.P. 251   7.5500              S
-## 1065     0     0               2673   7.2292              C
-## 1075     0     0               7935   7.7500              Q
-## 1080     8     2           CA. 2343  69.5500              S
-## 1083     0     0             111163  26.0000              S
-## 1091     0     0              65305   8.1125              S
-## 1092     0     0              36568  15.5000              Q
-## 1097     0     0         F.C. 12998  25.7417              C
-## 1103     0     0 SOTON/O.Q. 3101308   7.0500              S
-## 1108     0     0             330924   7.8792              Q
-## 1111     0     0              32302   8.0500              S
-## 1117     0     2               2661  15.2458              C
-## 1119     0     0             370368   7.7500              Q
-## 1125     0     0             330971   7.8792              Q
-## 1135     0     0               3470   7.8875              S
-## 1136     1     2         W./C. 6607  23.4500              S
-## 1141     1     0               2660  14.4542              C
-## 1147     0     0         C.A. 42795   7.5500              S
-## 1148     0     0          AQ/4 3130   7.7500              Q
-## 1157     0     0             349235   7.8958              S
-## 1158     0     0             112051   0.0000              S
-## 1159     0     0         C.A. 49867   7.5500              S
-## 1160     0     0        A. 2. 39186   8.0500              S
-## 1163     0     0             368573   7.7500              Q
-## 1165     1     0             370371  15.5000              Q
-## 1166     0     0               2676   7.2250              C
-## 1174     0     0             364859   7.7500              Q
-## 1178     0     0 SOTON/O.Q. 3101314   7.2500              S
-## 1180     0     0               2655   7.2292 F E46        C
-## 1181     0     0           A/5 1478   8.0500              S
-## 1182     0     0           PC 17607  39.6000              S
-## 1184     0     0               2652   7.2292              C
-## 1189     2     0               2662  21.6792              C
-## 1193     0     0             237735  15.0458     D        C
-## 1196     0     0             383123   7.7500              Q
-## 1204     0     0            LP 1588   7.5750              S
-## 1224     0     0               2684   7.2250              C
-## 1231     0     0               2622   7.2292              C
-## 1234     1     9           CA. 2343  69.5500              S
-## 1236     1     1           A/5. 851  14.5000              S
-## 1249     0     0               1222   7.8792              S
-## 1250     0     0             368402   7.7500              Q
-## 1257     1     9           CA. 2343  69.5500              S
-## 1258     1     0               2689  14.4583              C
-## 1272     0     0             366713   7.7500              Q
-## 1274     0     0             364498  14.5000              S
-## 1276     0     0      SC/PARIS 2159  12.8750              S
-## 1300     0     0             334915   7.7208              Q
-## 1302     0     0             365237   7.7500              Q
-## 1305     0     0          A.5. 3236   8.0500              S
-## 1308     0     0             359309   8.0500              S
-## 1309     1     1               2668  22.3583              C</code></pre>
+head(titanic_transform[is.na(titanic_transform$Age), ], 10)</code></pre>
+<pre><code>##    PassengerId Survived Pclass                                           Name
+## 6            6        0      3                               Moran, Mr. James
+## 18          18        1      2                   Williams, Mr. Charles Eugene
+## 20          20        1      3                        Masselmani, Mrs. Fatima
+## 27          27        0      3                        Emir, Mr. Farred Chehab
+## 29          29        1      3                O&#39;Dwyer, Miss. Ellen &quot;&quot;Nellie&quot;&quot;
+## 30          30        0      3                            Todoroff, Mr. Lalio
+## 32          32        1      1 Spencer, Mrs. William Augustus (Marie Eugenie)
+## 33          33        1      3                       Glynn, Miss. Mary Agatha
+## 37          37        1      3                               Mamee, Mr. Hanna
+## 43          43        0      3                            Kraeff, Mr. Theodor
+##       Sex Age SibSp Parch   Ticket     Fare Cabin Embarked
+## 6    male  NA     0     0   330877   8.4583              Q
+## 18   male  NA     0     0   244373  13.0000              S
+## 20 female  NA     0     0     2649   7.2250              C
+## 27   male  NA     0     0     2631   7.2250              C
+## 29 female  NA     0     0   330959   7.8792              Q
+## 30   male  NA     0     0   349216   7.8958              S
+## 32 female  NA     1     0 PC 17569 146.5208   B78        C
+## 33 female  NA     0     0   335677   7.7500              Q
+## 37   male  NA     0     0     2677   7.2292              C
+## 43   male  NA     0     0   349253   7.8958              C</code></pre>
 <pre class="r"><code>#A estos nulos de momento se decide
 #aplicar la media de la edad del resto de pasajeros
 titanic_transform$Age[is.na(titanic_transform$Age)] &lt;-
@@ -1455,13 +685,108 @@ titanic_transform &lt;- titanic_transform %&gt;%
   mutate(Sex = replace(Sex, Sex == &quot;female&quot;, 0))
 titanic_transform &lt;- titanic_transform %&gt;%
   mutate(Sex = replace(Sex, Sex == &quot;male&quot;, 1))</code></pre>
-<pre class="{summary(titanic$sex)}"><code>unique(titanic_transform$Sex)</code></pre>
+<p><strong>Embarked</strong></p>
+<pre class="r"><code>#Para la variable Embarked utilizaremos el proceso
+#one-hot enconding para codificar los valores
+
+#Analizamos los diferentes atributos para esta variable
+unique(titanic_transform$Embarked)</code></pre>
+<pre><code>## [1] &quot;S&quot; &quot;C&quot; &quot;Q&quot; &quot;&quot;</code></pre>
+<pre class="r"><code>#Creamos las variables dummy para la transformacion
+titanic_onehot &lt;- data.frame(titanic$Embarked)
+dummy &lt;- dummyVars(&quot; ~ .&quot;, data = titanic_onehot)
+titanic_one_hot2 &lt;- data.frame(predict(dummy, newdata = titanic_onehot))
+
+#Como tan solo hay 2 campos que tienen valor vacio
+#se decide eliminar esta columna
+titanic_one_hot2$titanic.Embarked &lt;- NULL
+
+#Se unen ambos dataframes
+titanic_transform &lt;- dplyr::bind_cols(titanic_transform, titanic_one_hot2)
+#eliminamos la columna original de Embarked
+titanic_transform$Embarked &lt;- NULL</code></pre>
 <p><strong>PLCLASS</strong></p>
 <pre class="r"><code>summary(titanic_transform$Pclass)</code></pre>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   1.000   2.000   3.000   2.295   3.000   3.000</code></pre>
 <pre class="r"><code>unique(titanic_transform$Pclass)</code></pre>
 <pre><code>## [1] 3 1 2</code></pre>
+<pre class="r"><code>#En principio no se hace ninguna modificacion sobre
+#esta columna. Se vera si en el futuro se decice
+#normalizarla en caso de que sea util para
+#entrenar un modelo de prediccion</code></pre>
+<p><strong>Cabin</strong></p>
+<pre class="r"><code>summary(titanic_transform$Cabin)</code></pre>
+<pre><code>##    Length     Class      Mode 
+##      1309 character character</code></pre>
+<pre class="r"><code>unique(titanic_transform$Cabin)</code></pre>
+<pre><code>##   [1] &quot;&quot;                &quot;C85&quot;             &quot;C123&quot;            &quot;E46&quot;            
+##   [5] &quot;G6&quot;              &quot;C103&quot;            &quot;D56&quot;             &quot;A6&quot;             
+##   [9] &quot;C23 C25 C27&quot;     &quot;B78&quot;             &quot;D33&quot;             &quot;B30&quot;            
+##  [13] &quot;C52&quot;             &quot;B28&quot;             &quot;C83&quot;             &quot;F33&quot;            
+##  [17] &quot;F G73&quot;           &quot;E31&quot;             &quot;A5&quot;              &quot;D10 D12&quot;        
+##  [21] &quot;D26&quot;             &quot;C110&quot;            &quot;B58 B60&quot;         &quot;E101&quot;           
+##  [25] &quot;F E69&quot;           &quot;D47&quot;             &quot;B86&quot;             &quot;F2&quot;             
+##  [29] &quot;C2&quot;              &quot;E33&quot;             &quot;B19&quot;             &quot;A7&quot;             
+##  [33] &quot;C49&quot;             &quot;F4&quot;              &quot;A32&quot;             &quot;B4&quot;             
+##  [37] &quot;B80&quot;             &quot;A31&quot;             &quot;D36&quot;             &quot;D15&quot;            
+##  [41] &quot;C93&quot;             &quot;C78&quot;             &quot;D35&quot;             &quot;C87&quot;            
+##  [45] &quot;B77&quot;             &quot;E67&quot;             &quot;B94&quot;             &quot;C125&quot;           
+##  [49] &quot;C99&quot;             &quot;C118&quot;            &quot;D7&quot;              &quot;A19&quot;            
+##  [53] &quot;B49&quot;             &quot;D&quot;               &quot;C22 C26&quot;         &quot;C106&quot;           
+##  [57] &quot;C65&quot;             &quot;E36&quot;             &quot;C54&quot;             &quot;B57 B59 B63 B66&quot;
+##  [61] &quot;C7&quot;              &quot;E34&quot;             &quot;C32&quot;             &quot;B18&quot;            
+##  [65] &quot;C124&quot;            &quot;C91&quot;             &quot;E40&quot;             &quot;T&quot;              
+##  [69] &quot;C128&quot;            &quot;D37&quot;             &quot;B35&quot;             &quot;E50&quot;            
+##  [73] &quot;C82&quot;             &quot;B96 B98&quot;         &quot;E10&quot;             &quot;E44&quot;            
+##  [77] &quot;A34&quot;             &quot;C104&quot;            &quot;C111&quot;            &quot;C92&quot;            
+##  [81] &quot;E38&quot;             &quot;D21&quot;             &quot;E12&quot;             &quot;E63&quot;            
+##  [85] &quot;A14&quot;             &quot;B37&quot;             &quot;C30&quot;             &quot;D20&quot;            
+##  [89] &quot;B79&quot;             &quot;E25&quot;             &quot;D46&quot;             &quot;B73&quot;            
+##  [93] &quot;C95&quot;             &quot;B38&quot;             &quot;B39&quot;             &quot;B22&quot;            
+##  [97] &quot;C86&quot;             &quot;C70&quot;             &quot;A16&quot;             &quot;C101&quot;           
+## [101] &quot;C68&quot;             &quot;A10&quot;             &quot;E68&quot;             &quot;B41&quot;            
+## [105] &quot;A20&quot;             &quot;D19&quot;             &quot;D50&quot;             &quot;D9&quot;             
+## [109] &quot;A23&quot;             &quot;B50&quot;             &quot;A26&quot;             &quot;D48&quot;            
+## [113] &quot;E58&quot;             &quot;C126&quot;            &quot;B71&quot;             &quot;B51 B53 B55&quot;    
+## [117] &quot;D49&quot;             &quot;B5&quot;              &quot;B20&quot;             &quot;F G63&quot;          
+## [121] &quot;C62 C64&quot;         &quot;E24&quot;             &quot;C90&quot;             &quot;C45&quot;            
+## [125] &quot;E8&quot;              &quot;B101&quot;            &quot;D45&quot;             &quot;C46&quot;            
+## [129] &quot;D30&quot;             &quot;E121&quot;            &quot;D11&quot;             &quot;E77&quot;            
+## [133] &quot;F38&quot;             &quot;B3&quot;              &quot;D6&quot;              &quot;B82 B84&quot;        
+## [137] &quot;D17&quot;             &quot;A36&quot;             &quot;B102&quot;            &quot;B69&quot;            
+## [141] &quot;E49&quot;             &quot;C47&quot;             &quot;D28&quot;             &quot;E17&quot;            
+## [145] &quot;A24&quot;             &quot;C50&quot;             &quot;B42&quot;             &quot;C148&quot;           
+## [149] &quot;B45&quot;             &quot;B36&quot;             &quot;A21&quot;             &quot;D34&quot;            
+## [153] &quot;A9&quot;              &quot;C31&quot;             &quot;B61&quot;             &quot;C53&quot;            
+## [157] &quot;D43&quot;             &quot;C130&quot;            &quot;C132&quot;            &quot;C55 C57&quot;        
+## [161] &quot;C116&quot;            &quot;F&quot;               &quot;A29&quot;             &quot;C6&quot;             
+## [165] &quot;C28&quot;             &quot;C51&quot;             &quot;C97&quot;             &quot;D22&quot;            
+## [169] &quot;B10&quot;             &quot;E45&quot;             &quot;E52&quot;             &quot;A11&quot;            
+## [173] &quot;B11&quot;             &quot;C80&quot;             &quot;C89&quot;             &quot;F E46&quot;          
+## [177] &quot;B26&quot;             &quot;F E57&quot;           &quot;A18&quot;             &quot;E60&quot;            
+## [181] &quot;E39 E41&quot;         &quot;B52 B54 B56&quot;     &quot;C39&quot;             &quot;B24&quot;            
+## [185] &quot;D40&quot;             &quot;D38&quot;             &quot;C105&quot;</code></pre>
+<pre class="r"><code>#Mas del 80% de los campos estan vacios por lo
+#que se decide eliminar esta columna ya que
+#seguramente entorpezca mas el entrenamiento
+#con tan pocos atributos
+titanic_transform$Cabin &lt;- NULL</code></pre>
+</div>
+<div id="normalizacion-de-variables" class="section level4">
+<h4>Normalizacion de variables</h4>
+<pre class="r"><code>#Creamos una funcion para normalizar
+normalize &lt;- function(x) {
+return((x - min(x)) / (max(x) - min(x)))
+}
+
+#normalizamos la columna edad
+titanic_transform$Age_norm &lt;- normalize(titanic_transform$Age)
+
+#Falta hacer lo mismo con Fare pero da error
+#puede ser por que estos estan en coma flotante
+#pero no se porque ya que es numerico
+#igual que age</code></pre>
 </div>
 <div id="ver-relación-entre-el-sexo-y-los-supervivientes" class="section level4">
 <h4>Ver relación entre el sexo y los supervivientes</h4>
