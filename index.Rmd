@@ -226,11 +226,18 @@ return((x - min(x)) / (max(x) - min(x)))
 
 #normalizamos la columna edad
 titanic_transform$Age_norm <- normalize(titanic_transform$Age)
+```
 
-#Falta hacer lo mismo con Fare pero da error
-#puede ser por que estos estan en coma flotante
-#pero no se porque ya que es numerico
-#igual que age
+```{r}
+# Normalizamos Fare pero antes quitamos los na que tiene 1
+titanic_transform <- titanic_transform[!is.na(titanic_transform$Fare), ]
+titanic_transform$Fare_norm <- normalize(titanic_transform$Fare)
+head(titanic_transform, 10)
+```
+
+```{r}
+titanic_transform$Fare_norm <- normalize(titanic_transform$Fare)
+head(titanic_transform, 10)
 ```
 
 #### Ver relación entre el sexo y los supervivientes
