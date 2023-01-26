@@ -119,7 +119,7 @@ colSums(is.na(titanic_transform))
 
 ```{r}
 #Visualizamos los pasajeros que tienen nulos en la Age
-titanic_transform[is.na(titanic_transform$Age), ]
+head(titanic_transform[is.na(titanic_transform$Age), ], 10)
 ```
 
 ```{r}
@@ -179,9 +179,9 @@ titanic_transform <- titanic_transform %>%
 unique(titanic_transform$Embarked)
 
 #Creamos las variables dummy para la transformacion
-titanic_onehot<-data.frame(titanic$Embarked)
-dummy <- dummyVars(" ~ .", data=titanic_onehot)
-titanic_one_hot2 <- data.frame(predict(dummy, newdata=titanic_onehot))
+titanic_onehot <- data.frame(titanic$Embarked)
+dummy <- dummyVars(" ~ .", data = titanic_onehot)
+titanic_one_hot2 <- data.frame(predict(dummy, newdata = titanic_onehot))
 
 #Como tan solo hay 2 campos que tienen valor vacio
 #se decide eliminar esta columna
@@ -221,15 +221,15 @@ titanic_transform$Cabin <- NULL
 ```{r}
 #Creamos una funcion para normalizar
 normalize <- function(x) {
-  return ((x - min(x)) / (max(x) - min(x)))
+return((x - min(x)) / (max(x) - min(x)))
 }
 
 #normalizamos la columna edad
-titanic_transform$Age_norm<-normalize(titanic_transform$Age)
+titanic_transform$Age_norm <- normalize(titanic_transform$Age)
 
 #Falta hacer lo mismo con Fare pero da error
 #puede ser por que estos estan en coma flotante
-#pero no se porque ya que es numerico 
+#pero no se porque ya que es numerico
 #igual que age
 ```
 
