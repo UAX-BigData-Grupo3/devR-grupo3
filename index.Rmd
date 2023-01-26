@@ -162,9 +162,6 @@ summary(titanic_transform$Parch)
 **Sex**
 
 ```{r}
-```
-
-```{r}
 #Codificamos el sexo como 0=female, 2=male
 titanic_transform <- titanic_transform %>%
   mutate(Sex = replace(Sex, Sex == "female", 0))
@@ -172,8 +169,28 @@ titanic_transform <- titanic_transform %>%
   mutate(Sex = replace(Sex, Sex == "male", 1))
 ```
 
-``` {summary(titanic$sex)}
-unique(titanic_transform$Sex)
+**Embarked**
+
+```{r}
+#Para la variable Embarked utilizaremos el proceso
+#one-hot enconding para codificar los valores
+
+#Analizamos los diferentes atributos para esta variable
+unique(titanic_transform$Embarked)
+
+#Creamos las variables dummy para la transformacion
+titanic_onehot<-data.frame(titanic$Embarked)
+dummy <- dummyVars(" ~ .", data=titanic_onehot)
+titanic_one_hot2 <- data.frame(predict(dummy, newdata=titanic_onehot))
+
+#Como tan solo hay 2 campos que tienen valor vacio
+#se decide eliminar esta columna
+titanic_one_hot2$titanic.Embarked <- NULL
+
+#Se unen ambos dataframes
+titanic_transform <- dplyr::bind_cols(titanic_transform, titanic_one_hot2)
+#eliminamos la columna original de Embarked
+titanic_transform$Embarked <- NULL
 ```
 
 **PLCLASS**
@@ -181,6 +198,39 @@ unique(titanic_transform$Sex)
 ```{r}
 summary(titanic_transform$Pclass)
 unique(titanic_transform$Pclass)
+#En principio no se hace ninguna modificacion sobre
+#esta columna. Se vera si en el futuro se decice
+#normalizarla en caso de que sea util para
+#entrenar un modelo de prediccion
+```
+
+**Cabin**
+
+```{r}
+summary(titanic_transform$Cabin)
+unique(titanic_transform$Cabin)
+#Mas del 80% de los campos estan vacios por lo
+#que se decide eliminar esta columna ya que
+#seguramente entorpezca mas el entrenamiento
+#con tan pocos atributos
+titanic_transform$Cabin <- NULL
+```
+
+#### Normalizacion de variables
+
+```{r}
+#Creamos una funcion para normalizar
+normalize <- function(x) {
+  return ((x - min(x)) / (max(x) - min(x)))
+}
+
+#normalizamos la columna edad
+titanic_transform$Age_norm<-normalize(titanic_transform$Age)
+
+#Falta hacer lo mismo con Fare pero da error
+#puede ser por que estos estan en coma flotante
+#pero no se porque ya que es numerico 
+#igual que age
 ```
 
 #### Ver relación entre el sexo y los supervivientes
