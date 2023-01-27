@@ -270,3 +270,50 @@ Se ha realizado una exploración y transformacion general de las variables oport
 ***Paula*** acq content_transformer Corpus crude DataframeSource DirSource Docs findAssocs findFreqTerms findMostFreqTerms foreign getTokenizers getTransformations hpc inspect ***Cristian*** meta PCorpus PlainTextDocument plot readDataframe readDOC Reader readPDF readPlain readRCV1 readReut21578XML readTagged readXML removeNumbers removePunctuation ***Rafa*** removeSparseTerms removeWords SimpleCorpus Source stemCompletion stemDocument stopwords stripWhitespace TermDocumentMatrix termFreq TextDocument tm_combine tm_filter tm_map tm_reduce ***Diego*** tm_term_score tokenizer URISource VCorpus VectorSource weightBin WeightFunction weightSMART weightTf weightTfIdf writeCorpus XMLSource XMLTextDocument Zipf_n\_Heaps ZipSource
 
 ### Ejercicio 3: Estudio y presentación de dataset cáncer
+
+Cargamos los datos del dataset cáncer
+
+```{r}
+df_cancer <- fread(paste0(data_link, "Breast_Cancer.csv"), sep = ",", dec = ".")
+head(df_cancer, 10)
+```
+
+Vemos la estructura del dataframe
+
+```{r}
+str(df_cancer)
+```
+
+Resumen de las caracteristicas de las variables del dataframe
+
+```{r}
+summary(df_cancer)
+```
+
+Vemos si el dataframe tiene Na
+
+```{r}
+# Exploramos las primeras 10 lineas del df para ver si hay algún TRUE
+head(is.na(df_cancer), 10)
+# Vemos la posición en la que hay nulls, si los hay
+print("-------------------------------------------------------")
+apply(is.na(df_cancer), 2, which) # No tiene Na
+```
+
+Vemos si el dataframe tiene datos duplicados
+
+```{r}
+# El df tiene una fila duplicada
+df_cancer[duplicated(df_cancer)]
+# Borramos la fila duplicada
+head(df_cancer[!duplicated(df_cancer)], 10)
+```
+
+Cambiar el valor de la variable Status a numerico
+
+```{r}
+# Si sobrevive asignamos un 1 y si se muere es un 0
+df_cancer$Status<-c(Alive=1, Dead=0)[df_cancer$Status]
+unique(df_cancer$Status)
+head(df_cancer, 10)
+```
