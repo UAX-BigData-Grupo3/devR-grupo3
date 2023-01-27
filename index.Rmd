@@ -317,3 +317,10 @@ df_cancer$Status<-c(Alive=1, Dead=0)[df_cancer$Status]
 unique(df_cancer$Status)
 head(df_cancer, 10)
 ```
+
+Correlación entre edad y tamaño del tumor y si sobrevive o muere
+
+```{r}
+cor(df_cancer$Age, df_cancer$Status, method = c("pearson", "kendall", "spearman"))
+cor(df_cancer$`Tumor Size`, df_cancer$Status, method = c("pearson", "kendall", "spearman"))
+```
