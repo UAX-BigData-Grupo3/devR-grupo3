@@ -226,25 +226,44 @@ return((x - min(x)) / (max(x) - min(x)))
 
 #normalizamos la columna edad
 titanic_transform$Age_norm <- normalize(titanic_transform$Age)
+
+#eliminamos la columna Age original dejando solo la normalizada
+titanic_transform$Age <- NULL
 ```
 
 ```{r}
 # Normalizamos Fare pero antes quitamos los na que tiene 1
 titanic_transform <- titanic_transform[!is.na(titanic_transform$Fare), ]
 titanic_transform$Fare_norm <- normalize(titanic_transform$Fare)
+
+#eliminamos la columna head original dejando solo la normalizada
+titanic_transform$Fare <- NULL
 head(titanic_transform, 10)
 ```
 
-```{r}
-titanic_transform$Fare_norm <- normalize(titanic_transform$Fare)
-head(titanic_transform, 10)
-```
+#### Algunas visualizaciones en exploracion de datos
 
 #### Ver relación entre el sexo y los supervivientes
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
 ggplot(data = titanic_transform[], aes(x = Sex, fill = Survived)) + geom_bar()
 ```
+
+#### Ver relación entre la puerta de embarque y los supervivientes
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data = titanic[], aes(x = Embarked, fill = Survived)) + geom_bar()
+```
+
+#### Ver relación entre la clase y los supervivientes
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(data = titanic[], aes(x = Pclass, fill = Survived)) + geom_bar()
+```
+
+#### Conclusiones
+
+Se ha realizado una exploración y transformacion general de las variables oportunas. En caso de derivar el dataset para un proceso de aprendizaje automático se seguiría analizando si es necesario transformas más varibales(normalización, codificación, eliminación, etc.).
 
 ### Ejercicio 2: Presentación del paquete TM
 
