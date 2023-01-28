@@ -882,6 +882,263 @@ Zipf_n_Heaps ZipSource</p>
 </div>
 <div id="ejercicio-3-estudio-y-presentación-de-dataset-cáncer" class="section level3">
 <h3>Ejercicio 3: Estudio y presentación de dataset cáncer</h3>
+<p>Cargamos los datos del dataset cáncer</p>
+<pre class="r"><code>df_cancer &lt;- fread(paste0(data_link, &quot;Breast_Cancer.csv&quot;), sep = &quot;,&quot;, dec = &quot;.&quot;)
+head(df_cancer, 10)</code></pre>
+<pre><code>##     Age  Race Marital Status T Stage N Stage 6th Stage
+##  1:  68 White        Married      T1      N1       IIA
+##  2:  50 White        Married      T2      N2      IIIA
+##  3:  58 White       Divorced      T3      N3      IIIC
+##  4:  58 White        Married      T1      N1       IIA
+##  5:  47 White        Married      T2      N1       IIB
+##  6:  51 White         Single      T1      N1       IIA
+##  7:  51 White        Married      T1      N1       IIA
+##  8:  40 White        Married      T2      N1       IIB
+##  9:  40 White       Divorced      T4      N3      IIIC
+## 10:  69 White        Married      T4      N3      IIIC
+##                 differentiate Grade  A Stage Tumor Size Estrogen Status
+##  1:     Poorly differentiated     3 Regional          4        Positive
+##  2: Moderately differentiated     2 Regional         35        Positive
+##  3: Moderately differentiated     2 Regional         63        Positive
+##  4:     Poorly differentiated     3 Regional         18        Positive
+##  5:     Poorly differentiated     3 Regional         41        Positive
+##  6: Moderately differentiated     2 Regional         20        Positive
+##  7:       Well differentiated     1 Regional          8        Positive
+##  8: Moderately differentiated     2 Regional         30        Positive
+##  9:     Poorly differentiated     3 Regional        103        Positive
+## 10:       Well differentiated     1  Distant         32        Positive
+##     Progesterone Status Regional Node Examined Reginol Node Positive
+##  1:            Positive                     24                     1
+##  2:            Positive                     14                     5
+##  3:            Positive                     14                     7
+##  4:            Positive                      2                     1
+##  5:            Positive                      3                     1
+##  6:            Positive                     18                     2
+##  7:            Positive                     11                     1
+##  8:            Positive                      9                     1
+##  9:            Positive                     20                    18
+## 10:            Positive                     21                    12
+##     Survival Months Status
+##  1:              60  Alive
+##  2:              62  Alive
+##  3:              75  Alive
+##  4:              84  Alive
+##  5:              50  Alive
+##  6:              89  Alive
+##  7:              54  Alive
+##  8:              14   Dead
+##  9:              70  Alive
+## 10:              92  Alive</code></pre>
+<p>Vemos la estructura del dataframe</p>
+<pre class="r"><code>str(df_cancer)</code></pre>
+<pre><code>## Classes &#39;data.table&#39; and &#39;data.frame&#39;:   4024 obs. of  16 variables:
+##  $ Age                   : int  68 50 58 58 47 51 51 40 40 69 ...
+##  $ Race                  : chr  &quot;White&quot; &quot;White&quot; &quot;White&quot; &quot;White&quot; ...
+##  $ Marital Status        : chr  &quot;Married&quot; &quot;Married&quot; &quot;Divorced&quot; &quot;Married&quot; ...
+##  $ T Stage               : chr  &quot;T1&quot; &quot;T2&quot; &quot;T3&quot; &quot;T1&quot; ...
+##  $ N Stage               : chr  &quot;N1&quot; &quot;N2&quot; &quot;N3&quot; &quot;N1&quot; ...
+##  $ 6th Stage             : chr  &quot;IIA&quot; &quot;IIIA&quot; &quot;IIIC&quot; &quot;IIA&quot; ...
+##  $ differentiate         : chr  &quot;Poorly differentiated&quot; &quot;Moderately differentiated&quot; &quot;Moderately differentiated&quot; &quot;Poorly differentiated&quot; ...
+##  $ Grade                 : chr  &quot;3&quot; &quot;2&quot; &quot;2&quot; &quot;3&quot; ...
+##  $ A Stage               : chr  &quot;Regional&quot; &quot;Regional&quot; &quot;Regional&quot; &quot;Regional&quot; ...
+##  $ Tumor Size            : int  4 35 63 18 41 20 8 30 103 32 ...
+##  $ Estrogen Status       : chr  &quot;Positive&quot; &quot;Positive&quot; &quot;Positive&quot; &quot;Positive&quot; ...
+##  $ Progesterone Status   : chr  &quot;Positive&quot; &quot;Positive&quot; &quot;Positive&quot; &quot;Positive&quot; ...
+##  $ Regional Node Examined: int  24 14 14 2 3 18 11 9 20 21 ...
+##  $ Reginol Node Positive : int  1 5 7 1 1 2 1 1 18 12 ...
+##  $ Survival Months       : int  60 62 75 84 50 89 54 14 70 92 ...
+##  $ Status                : chr  &quot;Alive&quot; &quot;Alive&quot; &quot;Alive&quot; &quot;Alive&quot; ...
+##  - attr(*, &quot;.internal.selfref&quot;)=&lt;externalptr&gt;</code></pre>
+<p>Resumen de las caracteristicas de las variables del dataframe</p>
+<pre class="r"><code>summary(df_cancer)</code></pre>
+<pre><code>##       Age            Race           Marital Status       T Stage         
+##  Min.   :30.00   Length:4024        Length:4024        Length:4024       
+##  1st Qu.:47.00   Class :character   Class :character   Class :character  
+##  Median :54.00   Mode  :character   Mode  :character   Mode  :character  
+##  Mean   :53.97                                                           
+##  3rd Qu.:61.00                                                           
+##  Max.   :69.00                                                           
+##    N Stage           6th Stage         differentiate         Grade          
+##  Length:4024        Length:4024        Length:4024        Length:4024       
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##    A Stage            Tumor Size     Estrogen Status    Progesterone Status
+##  Length:4024        Min.   :  1.00   Length:4024        Length:4024        
+##  Class :character   1st Qu.: 16.00   Class :character   Class :character   
+##  Mode  :character   Median : 25.00   Mode  :character   Mode  :character   
+##                     Mean   : 30.47                                         
+##                     3rd Qu.: 38.00                                         
+##                     Max.   :140.00                                         
+##  Regional Node Examined Reginol Node Positive Survival Months
+##  Min.   : 1.00          Min.   : 1.000        Min.   :  1.0  
+##  1st Qu.: 9.00          1st Qu.: 1.000        1st Qu.: 56.0  
+##  Median :14.00          Median : 2.000        Median : 73.0  
+##  Mean   :14.36          Mean   : 4.158        Mean   : 71.3  
+##  3rd Qu.:19.00          3rd Qu.: 5.000        3rd Qu.: 90.0  
+##  Max.   :61.00          Max.   :46.000        Max.   :107.0  
+##     Status         
+##  Length:4024       
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## </code></pre>
+<p>Vemos si el dataframe tiene Na</p>
+<pre class="r"><code># Exploramos las primeras 10 lineas del df para ver si hay algún TRUE
+head(is.na(df_cancer), 10)</code></pre>
+<pre><code>##         Age  Race Marital Status T Stage N Stage 6th Stage differentiate Grade
+##  [1,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [2,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [3,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [4,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [5,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [6,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [7,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [8,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##  [9,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+## [10,] FALSE FALSE          FALSE   FALSE   FALSE     FALSE         FALSE FALSE
+##       A Stage Tumor Size Estrogen Status Progesterone Status
+##  [1,]   FALSE      FALSE           FALSE               FALSE
+##  [2,]   FALSE      FALSE           FALSE               FALSE
+##  [3,]   FALSE      FALSE           FALSE               FALSE
+##  [4,]   FALSE      FALSE           FALSE               FALSE
+##  [5,]   FALSE      FALSE           FALSE               FALSE
+##  [6,]   FALSE      FALSE           FALSE               FALSE
+##  [7,]   FALSE      FALSE           FALSE               FALSE
+##  [8,]   FALSE      FALSE           FALSE               FALSE
+##  [9,]   FALSE      FALSE           FALSE               FALSE
+## [10,]   FALSE      FALSE           FALSE               FALSE
+##       Regional Node Examined Reginol Node Positive Survival Months Status
+##  [1,]                  FALSE                 FALSE           FALSE  FALSE
+##  [2,]                  FALSE                 FALSE           FALSE  FALSE
+##  [3,]                  FALSE                 FALSE           FALSE  FALSE
+##  [4,]                  FALSE                 FALSE           FALSE  FALSE
+##  [5,]                  FALSE                 FALSE           FALSE  FALSE
+##  [6,]                  FALSE                 FALSE           FALSE  FALSE
+##  [7,]                  FALSE                 FALSE           FALSE  FALSE
+##  [8,]                  FALSE                 FALSE           FALSE  FALSE
+##  [9,]                  FALSE                 FALSE           FALSE  FALSE
+## [10,]                  FALSE                 FALSE           FALSE  FALSE</code></pre>
+<pre class="r"><code># Vemos la posición en la que hay nulls, si los hay
+print(&quot;-------------------------------------------------------&quot;)</code></pre>
+<pre><code>## [1] &quot;-------------------------------------------------------&quot;</code></pre>
+<pre class="r"><code>apply(is.na(df_cancer), 2, which) # No tiene Na</code></pre>
+<pre><code>## integer(0)</code></pre>
+<p>Vemos si el dataframe tiene datos duplicados</p>
+<pre class="r"><code># El df tiene una fila duplicada
+df_cancer[duplicated(df_cancer)]</code></pre>
+<pre><code>##    Age  Race Marital Status T Stage N Stage 6th Stage             differentiate
+## 1:  63 White        Married      T1      N1       IIA Moderately differentiated
+##    Grade  A Stage Tumor Size Estrogen Status Progesterone Status
+## 1:     2 Regional         17        Positive            Positive
+##    Regional Node Examined Reginol Node Positive Survival Months Status
+## 1:                      9                     1              56  Alive</code></pre>
+<pre class="r"><code># Borramos la fila duplicada
+head(df_cancer[!duplicated(df_cancer)], 10)</code></pre>
+<pre><code>##     Age  Race Marital Status T Stage N Stage 6th Stage
+##  1:  68 White        Married      T1      N1       IIA
+##  2:  50 White        Married      T2      N2      IIIA
+##  3:  58 White       Divorced      T3      N3      IIIC
+##  4:  58 White        Married      T1      N1       IIA
+##  5:  47 White        Married      T2      N1       IIB
+##  6:  51 White         Single      T1      N1       IIA
+##  7:  51 White        Married      T1      N1       IIA
+##  8:  40 White        Married      T2      N1       IIB
+##  9:  40 White       Divorced      T4      N3      IIIC
+## 10:  69 White        Married      T4      N3      IIIC
+##                 differentiate Grade  A Stage Tumor Size Estrogen Status
+##  1:     Poorly differentiated     3 Regional          4        Positive
+##  2: Moderately differentiated     2 Regional         35        Positive
+##  3: Moderately differentiated     2 Regional         63        Positive
+##  4:     Poorly differentiated     3 Regional         18        Positive
+##  5:     Poorly differentiated     3 Regional         41        Positive
+##  6: Moderately differentiated     2 Regional         20        Positive
+##  7:       Well differentiated     1 Regional          8        Positive
+##  8: Moderately differentiated     2 Regional         30        Positive
+##  9:     Poorly differentiated     3 Regional        103        Positive
+## 10:       Well differentiated     1  Distant         32        Positive
+##     Progesterone Status Regional Node Examined Reginol Node Positive
+##  1:            Positive                     24                     1
+##  2:            Positive                     14                     5
+##  3:            Positive                     14                     7
+##  4:            Positive                      2                     1
+##  5:            Positive                      3                     1
+##  6:            Positive                     18                     2
+##  7:            Positive                     11                     1
+##  8:            Positive                      9                     1
+##  9:            Positive                     20                    18
+## 10:            Positive                     21                    12
+##     Survival Months Status
+##  1:              60  Alive
+##  2:              62  Alive
+##  3:              75  Alive
+##  4:              84  Alive
+##  5:              50  Alive
+##  6:              89  Alive
+##  7:              54  Alive
+##  8:              14   Dead
+##  9:              70  Alive
+## 10:              92  Alive</code></pre>
+<p>Cambiar el valor de la variable Status a numerico</p>
+<pre class="r"><code># Si sobrevive asignamos un 1 y si se muere es un 0
+df_cancer$Status &lt;- c(Alive = 1, Dead = 0)[df_cancer$Status]
+unique(df_cancer$Status)</code></pre>
+<pre><code>## [1] 1 0</code></pre>
+<pre class="r"><code>head(df_cancer, 10)</code></pre>
+<pre><code>##     Age  Race Marital Status T Stage N Stage 6th Stage
+##  1:  68 White        Married      T1      N1       IIA
+##  2:  50 White        Married      T2      N2      IIIA
+##  3:  58 White       Divorced      T3      N3      IIIC
+##  4:  58 White        Married      T1      N1       IIA
+##  5:  47 White        Married      T2      N1       IIB
+##  6:  51 White         Single      T1      N1       IIA
+##  7:  51 White        Married      T1      N1       IIA
+##  8:  40 White        Married      T2      N1       IIB
+##  9:  40 White       Divorced      T4      N3      IIIC
+## 10:  69 White        Married      T4      N3      IIIC
+##                 differentiate Grade  A Stage Tumor Size Estrogen Status
+##  1:     Poorly differentiated     3 Regional          4        Positive
+##  2: Moderately differentiated     2 Regional         35        Positive
+##  3: Moderately differentiated     2 Regional         63        Positive
+##  4:     Poorly differentiated     3 Regional         18        Positive
+##  5:     Poorly differentiated     3 Regional         41        Positive
+##  6: Moderately differentiated     2 Regional         20        Positive
+##  7:       Well differentiated     1 Regional          8        Positive
+##  8: Moderately differentiated     2 Regional         30        Positive
+##  9:     Poorly differentiated     3 Regional        103        Positive
+## 10:       Well differentiated     1  Distant         32        Positive
+##     Progesterone Status Regional Node Examined Reginol Node Positive
+##  1:            Positive                     24                     1
+##  2:            Positive                     14                     5
+##  3:            Positive                     14                     7
+##  4:            Positive                      2                     1
+##  5:            Positive                      3                     1
+##  6:            Positive                     18                     2
+##  7:            Positive                     11                     1
+##  8:            Positive                      9                     1
+##  9:            Positive                     20                    18
+## 10:            Positive                     21                    12
+##     Survival Months Status
+##  1:              60      1
+##  2:              62      1
+##  3:              75      1
+##  4:              84      1
+##  5:              50      1
+##  6:              89      1
+##  7:              54      1
+##  8:              14      0
+##  9:              70      1
+## 10:              92      1</code></pre>
+<p>Correlación entre edad y tamaño del tumor y si sobrevive o muere</p>
+<pre class="r"><code>cor(df_cancer$Age, df_cancer$Status, method =
+      c(&quot;pearson&quot;, &quot;kendall&quot;, &quot;spearman&quot;))</code></pre>
+<pre><code>## [1] -0.05592131</code></pre>
+<pre class="r"><code>cor(df_cancer$`Tumor Size`, df_cancer$Status, method =
+      c(&quot;pearson&quot;, &quot;kendall&quot;, &quot;spearman&quot;))</code></pre>
+<pre><code>## [1] -0.1342051</code></pre>
 <!--chapter:end:index.Rmd-->
 </div>
 </div>
