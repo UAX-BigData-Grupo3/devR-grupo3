@@ -268,12 +268,14 @@ head(titanic_transform, 10)
 #### Ver relación entre el sexo y los supervivientes
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
+titanic_transform$Survived <- as.factor(titanic_transform$Survived)
 ggplot(data = titanic_transform[], aes(x = Sex, fill = Survived)) + geom_bar()
 ```
 
 #### Ver relación entre la puerta de embarque y los supervivientes
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
+titanic$Survived <- as.factor(titanic$Survived)
 ggplot(data = titanic[], aes(x = Embarked, fill = Survived)) + geom_bar()
 ```
 
@@ -337,7 +339,7 @@ Los documentos se transforman en texto plano.
 #procedemos a crear el corpus con los documentos en texto obtenidos de los pdfs
 
 corp <- Corpus(URISource(papers),
-              readerControl = list(reader = readPDF))
+               readerControl = list(reader = readPDF))
 ```
 
 Mostramos el contenido del corpus y las características de cada documento:
@@ -353,7 +355,7 @@ Podemos visualizar los metadatos de cada documento recorriendo el corpus con un 
 ```{r}
 #Visualizamos los metadatos de cada uno de los documentos
 for (i in seq_along(corp)) {
-  print(meta(corp[[i]]))
+print(meta(corp[[i]]))
 }
 
 dtm <- DocumentTermMatrix(corp)
@@ -453,7 +455,7 @@ El proceso es el siguiente:
 ```{r}
 set.seed(16)
 wordcloud(names(frec), frec, min.freq = 10, max.words = 30
-      , colors = brewer.pal(8, "Dark2"))
+          , colors = brewer.pal(8, "Dark2"))
 ```
 
 ### Ejercicio 3: Estudio y presentación de dataset cáncer
@@ -549,12 +551,16 @@ table(df_cancer$`Marital Status`, df_cancer$Grade)
 
 Se sigue apreciando que los que tienen un conteo mayor son los casados en estadio 2
 
+**Correlacion con las variables numéricas**
+
 ```{r}
 base <- df_cancer[, c("Age", "Grade", "Tumor Size", "Regional Node Examined",
                       "Reginol Node Positive", "Survival Months", "Status")]
 correlacion <- round(cor(base), 1)
 corrplot(correlacion, method = "number", type = "upper")
 ```
+
+**Índice de correlación para edad y tamño del tumor**
 
 ```{r}
 cor(df_cancer$Age, df_cancer$Status, method =
@@ -563,38 +569,67 @@ cor(df_cancer$`Tumor Size`, df_cancer$Status, method =
       c("pearson", "kendall", "spearman"))
 ```
 
+\*\*Visualizaciones de las distintas variables del dataset contra el estado del paciente por cada valor de las variables\*
+
 ```{r}
+df_cancer$Status <- as.factor(df_cancer$Status)
 df_cancer %>% ggplot(aes(Status, fill = Status)) + geom_bar()
-a <- df_cancer %>% ggplot(aes(Age, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(Age, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-b <- df_cancer %>% ggplot(aes(Race, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(Race, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-c <- df_cancer %>% ggplot(aes(`Marital Status`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`Marital Status`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-d <- df_cancer %>% ggplot(aes(`T Stage`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`T Stage`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-e <- df_cancer %>% ggplot(aes(`N Stage`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`N Stage`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-f <- df_cancer %>% ggplot(aes(`6th Stage`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`6th Stage`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-g <- df_cancer %>% ggplot(aes(differentiate, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(differentiate, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-h <- df_cancer %>% ggplot(aes(Grade, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(Grade, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-i <- df_cancer %>% ggplot(aes(`A Stage`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`A Stage`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-j <- df_cancer %>% ggplot(aes(`Tumor Size`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`Tumor Size`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-k <- df_cancer %>% ggplot(aes(`Estrogen Status`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`Estrogen Status`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-l <- df_cancer %>% ggplot(aes(`Progesterone Status`, fill = Status)) +
+df_cancer %>% ggplot(aes(`Progesterone Status`, fill = Status)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-m <- df_cancer %>% ggplot(aes(`Regional Node Examined`, fill = Status)) +
+df_cancer %>% ggplot(aes(`Regional Node Examined`, fill = Status)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-n <- df_cancer %>% ggplot(aes(`Reginol Node Positive`, fill = Status)) +
+df_cancer %>% ggplot(aes(`Reginol Node Positive`, fill = Status)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
-o <- df_cancer %>% ggplot(aes(`Survival Months`, fill = Status)) + geom_bar() +
+df_cancer %>% ggplot(aes(`Survival Months`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-grid.arrange(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, ncol = 2, nrow = 8)
 ```
+
+**Boxplot donde se tamaño del tumor para cada estado**
+
+```{r}
+ggplot(df_cancer, aes(Status, `Tumor Size`)) + geom_boxplot() +
+  ylab("Tamaño del tumor") +
+  ggtitle("Box Plot de tamaño del tumor para cada estado")
+```
+
+Se observa que las que no han sobrevivo al cáncer tenían un tamaño de tumor 
+mayor en promedio.
+
+**Distribución según tamaño y edad para el estado de la paciente de cáncer**
+
+```{r}
+plot(x = df_cancer$`Tumor Size`, y = df_cancer$Age, col = df_cancer$Status,
+     main = "Estado cáncer", xlab = "Tamaño del tumor", ylab = "Edad")
+```
+
+**Gráfico de tarta donde se muestra si el tumor se ha extendido o no**
+
+```{r}
+pie(table(df_cancer$`A Stage`),
+    main = "Gráfico para la clasificación de casos según si se ha extendido")
+```
+
+*Conclusiones*: Se puede observar que la mayoría de las pacientes han sobrevivo después de tener el cáncer, aunque las que tenían el cáncer ya muy avanzado han sobrevivido pocos meses, así como las que tenían un mayor tamaño de tumor. La mayoría de los casos estudiados corresponden a mujeres blancas, casadas y con cáncer en grado 2. La mayoría tenía el cáncer poco extendido.
