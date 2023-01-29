@@ -53,6 +53,8 @@ if (!require(corrplot))
   install.packages("corrplot")
 if (!require(PerformanceAnalytics))
   install.packages("PerformanceAnalytics")
+if (!require(readxl))
+  install.packages("readxl")
 ```
 
 #### Carga de librerias
@@ -75,6 +77,7 @@ library(corrplot)
 library(PerformanceAnalytics)
 library(tm)
 library(pdftools)
+library(readxl)
 ```
 
 ### Ejercicio 1: Preprocesamiento titanic
@@ -508,7 +511,7 @@ unique(df_cancer$Status)
 **Se reemplaza el valor del grado desacorde por 4**
 
 ```{r}
-df_cancer$Grade[df_cancer$Grade == 'anaplastic; Grade IV'] <- '4'
+df_cancer$Grade[df_cancer$Grade == "anaplastic; Grade IV"] <- "4"
 df_cancer$Grade <- as.integer(df_cancer$Grade)
 ```
 
@@ -531,10 +534,12 @@ head(df_cancer, 10)
 ```
 
 **Conteo de variables**
+
 ```{r}
 # Conteo para cada raza y grado
 table(df_cancer$Race, df_cancer$Grade)
 ```
+
 Se puede apreciar que la raza blanca tiene sobretodo cáncer en grado 2
 
 ```{r}
@@ -545,8 +550,9 @@ table(df_cancer$`Marital Status`, df_cancer$Grade)
 Se sigue apreciando que los que tienen un conteo mayor son los casados en estadio 2
 
 ```{r}
-base <- df_cancer[, c("Age","Grade","Tumor Size","Regional Node Examined","Reginol Node Positive","Survival Months","Status")]
-correlacion<-round(cor(base), 1)
+base <- df_cancer[, c("Age", "Grade", "Tumor Size", "Regional Node Examined",
+                      "Reginol Node Positive", "Survival Months", "Status")]
+correlacion <- round(cor(base), 1)
 corrplot(correlacion, method="number", type="upper")
 ```
 
@@ -559,36 +565,36 @@ cor(df_cancer$`Tumor Size`, df_cancer$Status, method =
 
 ```{r}
 df_cancer %>% ggplot(aes(Status, fill=Status)) + geom_bar()
-a <- df_cancer %>% ggplot(aes(Age, fill=Status)) + geom_bar()+
+a <- df_cancer %>% ggplot(aes(Age, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-b <- df_cancer %>% ggplot(aes(Race, fill=Status)) + geom_bar()+
+b <- df_cancer %>% ggplot(aes(Race, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-c <- df_cancer %>% ggplot(aes(`Marital Status`, fill=Status)) + geom_bar()+
+c <- df_cancer %>% ggplot(aes(`Marital Status`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-d <- df_cancer %>% ggplot(aes(`T Stage`, fill=Status)) + geom_bar()+
+d <- df_cancer %>% ggplot(aes(`T Stage`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-e <- df_cancer %>% ggplot(aes(`N Stage`, fill=Status)) + geom_bar()+
+e <- df_cancer %>% ggplot(aes(`N Stage`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-f <- df_cancer %>% ggplot(aes(`6th Stage`, fill=Status)) + geom_bar()+
+f <- df_cancer %>% ggplot(aes(`6th Stage`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-g <- df_cancer %>% ggplot(aes(differentiate, fill=Status)) + geom_bar()+
+g <- df_cancer %>% ggplot(aes(differentiate, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-h <- df_cancer %>% ggplot(aes(Grade, fill=Status)) + geom_bar()+
+h <- df_cancer %>% ggplot(aes(Grade, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-i <- df_cancer %>% ggplot(aes(`A Stage`, fill=Status)) + geom_bar()+
+i <- df_cancer %>% ggplot(aes(`A Stage`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-j <- df_cancer %>% ggplot(aes(`Tumor Size`, fill=Status)) + geom_bar()+
+j <- df_cancer %>% ggplot(aes(`Tumor Size`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-k <- df_cancer %>% ggplot(aes(`Estrogen Status`, fill=Status)) + geom_bar()+
+k <- df_cancer %>% ggplot(aes(`Estrogen Status`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-l <- df_cancer %>% ggplot(aes(`Progesterone Status`, fill=Status)) + geom_bar()+
+l <- df_cancer %>% ggplot(aes(`Progesterone Status`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-m <- df_cancer %>% ggplot(aes(`Regional Node Examined`, fill=Status)) + geom_bar()+
+m <- df_cancer %>% ggplot(aes(`Regional Node Examined`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-n <- df_cancer %>% ggplot(aes(`Reginol Node Positive`, fill=Status)) + geom_bar()+
+n <- df_cancer %>% ggplot(aes(`Reginol Node Positive`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-o <- df_cancer %>% ggplot(aes(`Survival Months`, fill=Status)) + geom_bar()+
+o <- df_cancer %>% ggplot(aes(`Survival Months`, fill=Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-grid.arrange(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o, ncol = 2, nrow=8)
+grid.arrange(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, ncol = 2, nrow = 8)
 ```
