@@ -26,6 +26,10 @@ if (!require(magrittr))
   install.packages("magrittr")
 if (!require(dplyr))
   install.packages("dplyr") # alternative installation of the %>%
+if (!require(tm))
+  install.packages("tm")
+if (!require(pdftools))
+  install.packages("pdftools")
 if (!require(caret))
   install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
@@ -58,6 +62,8 @@ library(gridExtra)
 library(ggplot2)
 library(ggcorrplot)
 library(rpart)
+library(tm)
+library(pdftools)
 ```
 
 #### Creación del dataset
@@ -300,7 +306,9 @@ papers <- lapply(papers, paste)
 
 papers <- paste("./papers/", papers, sep = "")
 ```
+
 Podemos ver la lista de documentos que se van a incorporar al corpus.
+
 ```{r}
 papers
 ```
@@ -431,7 +439,6 @@ set.seed(16)
 wordcloud(names(frec), frec, min.freq = 10, max.words = 30
       , colors = brewer.pal(8, "Dark2"))
 ```
-
 
 ### Ejercicio 3: Estudio y presentación de dataset cáncer
 
