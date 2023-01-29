@@ -27,3 +27,11 @@ jobs:
         shell: Rscript {0}
         env:
           LINTR_ERROR_ON_LINT: true
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install rmarkdown and bookdown
+        run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
+      
+      - name: Render Book to check dependencies
+        run: Rscript -e 'bookdown::render_book("index.Rmd")'
