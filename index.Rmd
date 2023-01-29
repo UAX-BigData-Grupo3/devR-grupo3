@@ -447,14 +447,12 @@ Se observa que las que no han sobrevivo al cáncer tenían un tamaño de tumor m
 
 **Distribución según tamaño y edad para el estado de la paciente de cáncer**
 ```{r}
-plot(x = df_cancer$`Tumor Size`, y = df_cancer$Age, col = df_cancer$Status, 
-  main = "Estado cáncer", xlab = "Tamaño del tumor", ylab = "Edad")
+plot(x = df_cancer$`Tumor Size`, y = df_cancer$Age, col = df_cancer$Status, main = "Estado cáncer", xlab = "Tamaño del tumor", ylab = "Edad")
 ```
 
 **Gráfico de tarta donde se muestra si el tumor se ha extendido o no**
 ```{r}
-pie(table(df_cancer$`A Stage`), 
-  main="Gráfico para la clasificación de casos según si se ha extendido")
+pie(table(df_cancer$`A Stage`), main="Gráfico para la clasificación de casos según si se ha extendido")
 ```
 
 *Conclusiones*:
