@@ -26,6 +26,10 @@ if (!require(magrittr))
   install.packages("magrittr")
 if (!require(dplyr))
   install.packages("dplyr") # alternative installation of the %>%
+if (!require(tm))
+  install.packages("tm")
+if (!require(pdftools))
+  install.packages("pdftools")
 if (!require(caret))
   install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
@@ -70,6 +74,8 @@ library(readxl)
 library(GGally)
 library(corrplot)
 library(PerformanceAnalytics)
+library(tm)
+library(pdftools)
 ```
 
 ### Ejercicio 1: Preprocesamiento titanic
@@ -281,7 +287,172 @@ Se ha realizado una exploración y transformacion general de las variables oport
 
 ### Ejercicio 2: Presentación del paquete TM
 
-***Paula*** acq content_transformer Corpus crude DataframeSource DirSource Docs findAssocs findFreqTerms findMostFreqTerms foreign getTokenizers getTransformations hpc inspect ***Cristian*** meta PCorpus PlainTextDocument plot readDataframe readDOC Reader readPDF readPlain readRCV1 readReut21578XML readTagged readXML removeNumbers removePunctuation ***Rafa*** removeSparseTerms removeWords SimpleCorpus Source stemCompletion stemDocument stopwords stripWhitespace TermDocumentMatrix termFreq TextDocument tm_combine tm_filter tm_map tm_reduce ***Diego*** tm_term_score tokenizer URISource VCorpus VectorSource weightBin WeightFunction weightSMART weightTf weightTfIdf writeCorpus XMLSource XMLTextDocument Zipf_n\_Heaps ZipSource
+### A continuación, se presenta el paquete TM para minería de Texto.
+
+#### 1 - Comenzamos con la instalación y carga de los paquetes necesarios: tm y wordcloud.
+
+```{r}
+install.packages("tm")
+library(tm)
+
+install.packages("wordcloud")
+library(wordcloud)
+
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+#### 2 - Vamos a generar un corpus con los documentos que se van a analizar y transformar:
+
+Los documentos a analizar tendrán formato PDF y deben estar en el directorio ./papers desde el que se ejecuta este Notebook.
+
+```{r}
+getwd()
+
+#Los documentos (pdf) deben estar en el directorio ./papers
+
+# Generamos una lista con lo nombres de los ficheros pdf en ./papers
+
+papers <- list.files(path = "./papers", pattern = "pdf$")
+papers <- lapply(papers, paste)
+
+#Comprobamos que detectan los documentos
+
+papers <- paste("./papers/", papers, sep = "")
+```
+
+Podemos ver la lista de documentos que se van a incorporar al corpus.
+
+```{r}
+papers
+```
+
+En el siguiente paso se crea el corpus incorporando los documentos pdf existentes en el directorio.
+
+Los documentos se transforman en texto plano.
+
+```{r}
+#procedemos a crear el corpus con los documentos en texto obtenidos de los pdfs
+
+corp <- Corpus(URISource(papers),
+              readerControl = list(reader = readPDF))
+```
+
+Mostramos el contenido del corpus y las características de cada documento:
+
+```{r}
+#Inspeccionamos el contenido del corpus mostrando para cada documento
+#número de metadatos y el número de carácteres de cada doc
+inspect(corp)
+```
+
+Podemos visualizar los metadatos de cada documento recorriendo el corpus con un bucle for:
+
+```{r}
+#Visualizamos los metadatos de cada uno de los documentos
+for (i in seq_along(corp)) {
+  print(meta(corp[[i]]))
+}
+
+dtm <- DocumentTermMatrix(corp)
+
+```
+
+#### 3 - Comenzamos con el análisis de los documentos.
+
+Primero vamos a generar la mátriz del corpus **(DocumentTermMatrix)** y las estadísticas de esta:
+
+-   Número de documentos
+
+-   Número de términos.
+
+-   Dispersión.
+
+-   Máxima longitud o máximo número de carácteres para un término.
+
+```{r}
+#Creamos la Mátriz de términos
+dtm <- DocumentTermMatrix(corp)
+
+#Visualizamos las estádisticas
+dtm
+
+```
+
+#### 4 - Vamos a transformar los documentos del corpus para realizar un mejor análisis.
+
+Se va a reducir el número de términos mediante el siguiente proceso:
+
+1.  Eliminamos los números ya que se consideran términos y no van a ser objeto del análisis.
+
+2.  Quitamos los signos de puntuación.
+
+3.  Se convierte el texto a minúsculas ya que TM es sensible a las mayúsculas.
+
+4.  Eliminamos las palabras sin significado relevante para el análisis: preposiciones, conjunciones (stopwords).
+
+5.  Eliminamos espacios redundantes
+
+```{r}
+#Para reducir el volumen de términos y quedarnos solo con las palabras
+#clave:
+
+#1) Eliminamos los números (no son objeto del análisis)
+corp <- tm_map(corp, removeNumbers)
+
+#2) eliminamos los signos de puntuación
+corp <- tm_map(corp, removePunctuation)
+
+#pasamos el texto a minúsculas
+corp <- tm_map(corp, content_transformer(tolower))
+
+#Eliminamos las palabras comunes como artículo y preposiciones en inglés
+corp <- tm_map(corp, removeWords, stopwords(kind = "en"))
+
+#Eliminamos espacios consecutivos
+corp <- tm_map(corp, stripWhitespace)
+```
+
+Volvemos a visualizar las estadísticas: El número de términos y la dispersión han debido reducirse al eliminar los elementos anteriores.
+
+```{r}
+#Volvemos a generar la Matriz de términos y visualizamos estadísticas
+dtm <- DocumentTermMatrix(corp)
+dtm
+```
+
+Presentamos el histograma de términos más frecuentes en el corpus:
+
+```{r}
+frec <- sort(colSums(as.matrix(dtm)), decreasing = TRUE)
+df <- data.frame(terminos = names(frec), ocurrencia = frec)
+
+p <- ggplot(subset(df, frec > 70), aes(terminos, ocurrencia))
+p <- p + scale_fill_brewer(palette = "Blues")
+p <- p + geom_bar(stat = "identity", color = "blue", fill = "white")
+p <- p + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p
+```
+
+#### 5 - Vamos a representar la nube de palabras del corpus:
+
+Para ello utilizaremos una nube de palabras generada por la librería **wordcloud**
+
+El proceso es el siguiente:
+
+1.  Calculamos para cada término de la matriz la suma total de apariciones (para todo el corpus).
+
+2.  Se ordena de forma de mayor a menor frecuencia.
+
+3.  Se selecciona un número máximo de palabras (30 en este caso)
+
+4.  Se dibuja la nube de palabras mediante la función wordcloud.
+
+```{r}
+set.seed(16)
+wordcloud(names(frec), frec, min.freq = 10, max.words = 30
+      , colors = brewer.pal(8, "Dark2"))
+```
 
 ### Ejercicio 3: Estudio y presentación de dataset cáncer
 
