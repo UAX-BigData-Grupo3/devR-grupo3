@@ -28,8 +28,8 @@ if (!require(dplyr))
   install.packages("dplyr") # alternative installation of the %>%
 if (!require(tm))
   install.packages("tm")
-if (!require(wordcloud))
-  install.packages("wordcloud")
+if (!require(pdftools))
+  install.packages("pdftools")
 if (!require(caret))
   install.packages("caret", repos = "http://cran.us.r-project.org")
 if (!require(data.table))
@@ -63,7 +63,7 @@ library(ggplot2)
 library(ggcorrplot)
 library(rpart)
 library(tm)
-library(wordlcoud)
+library(pdftools)
 ```
 
 #### Creación del dataset
