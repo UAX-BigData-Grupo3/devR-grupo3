@@ -628,7 +628,7 @@ plot(x = df_cancer$`Tumor Size`, y = df_cancer$Age, col = df_cancer$Status,
 **Gráfico de tarta donde se muestra si el tumor se ha extendido o no**
 
 ```{r}
-pie(table(df_cancer$`A Stage`), 
+pie(table(df_cancer$`A Stage`),
     main = "Gráfico para la clasificación de casos según si se ha extendido")
 ```
 
