@@ -587,7 +587,7 @@ j <- df_cancer %>% ggplot(aes(`Tumor Size`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 k <- df_cancer %>% ggplot(aes(`Estrogen Status`, fill = Status)) + geom_bar() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-l <- df_cancer %>% ggplot(aes(`Progesterone Status`,fill = Status)) +
+l <- df_cancer %>% ggplot(aes(`Progesterone Status`, fill = Status)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 m <- df_cancer %>% ggplot(aes(`Regional Node Examined`, fill = Status)) +
   geom_bar() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
