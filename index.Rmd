@@ -1,6 +1,8 @@
 ---
 title: "trabajo_grupal"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 date: '2023-01-14'
 ---
 
@@ -12,8 +14,6 @@ date: '2023-01-14'
 -   Cristian Sales Villa
 -   Rafael Castillo García
 -   Diego Cristóbal Herreros
-
-### Ejercicio 1: Preprocesamiento titanic
 
 #### Instalación de los paquetes requeridos
 
@@ -42,6 +42,14 @@ if (!require(ggplot2))
   install.packages("ggplot2", repos = "http://cran.us.r-project.org")
 if (!require(rpart.plot))
   install.packages("rpart.plot", repos = "http://cran.us.r-project.org")
+if (!require(readxl))
+  install.packages("GGally")
+if (!require(corrplot))
+  install.packages("GGally")
+if (!require(corrplot))
+  install.packages("corrplot")
+if (!require(PerformanceAnalytics))
+  install.packages("PerformanceAnalytics")
 ```
 
 #### Carga de librerias
@@ -58,7 +66,13 @@ library(gridExtra)
 library(ggplot2)
 library(ggcorrplot)
 library(rpart)
+library(readxl)
+library(GGally)
+library(corrplot)
+library(PerformanceAnalytics)
 ```
+
+### Ejercicio 1: Preprocesamiento titanic
 
 #### Creación del dataset
 
@@ -271,26 +285,26 @@ Se ha realizado una exploración y transformacion general de las variables oport
 
 ### Ejercicio 3: Estudio y presentación de dataset cáncer
 
-Cargamos los datos del dataset cáncer
+**Cargamos los datos del dataset cáncer**
 
 ```{r}
 df_cancer <- fread(paste0(data_link, "Breast_Cancer.csv"), sep = ",", dec = ".")
 head(df_cancer, 10)
 ```
 
-Vemos la estructura del dataframe
+**Vemos la estructura del dataframe**
 
 ```{r}
 str(df_cancer)
 ```
 
-Resumen de las caracteristicas de las variables del dataframe
+**Resumen de las caracteristicas de las variables del dataframe**
 
 ```{r}
 summary(df_cancer)
 ```
 
-Vemos si el dataframe tiene Na
+**Vemos si el dataframe tiene Na**
 
 ```{r}
 # Exploramos las primeras 10 lineas del df para ver si hay algún TRUE
@@ -300,7 +314,35 @@ print("-------------------------------------------------------")
 apply(is.na(df_cancer), 2, which) # No tiene Na
 ```
 
-Vemos si el dataframe tiene datos duplicados
+**Obtenemos los valores únicos de las variables**
+
+```{r}
+unique(df_cancer$Age)
+unique(df_cancer$Race)
+unique(df_cancer$`Marital Status`)
+unique(df_cancer$`T Stage`)
+unique(df_cancer$`N Stage`)
+unique(df_cancer$`6th Stage`)
+unique(df_cancer$differentiate)
+unique(df_cancer$Grade)
+unique(df_cancer$`A Stage`)
+unique(df_cancer$`Tumor Size`)
+unique(df_cancer$`Estrogen Status`)
+unique(df_cancer$`Progesterone Status`)
+unique(df_cancer$`Regional Node Examined`)
+unique(df_cancer$`Reginol Node Positive`)
+unique(df_cancer$`Survival Months`)
+unique(df_cancer$Status)
+```
+
+**Se reemplaza el valor del grado desacorde por 4**
+
+```{r}
+df_cancer$Grade[df_cancer$Grade == 'anaplastic; Grade IV'] <- '4'
+df_cancer$Grade <- as.integer(df_cancer$Grade)
+```
+
+**Vemos si el dataframe tiene datos duplicados**
 
 ```{r}
 # El df tiene una fila duplicada
@@ -309,7 +351,7 @@ df_cancer[duplicated(df_cancer)]
 head(df_cancer[!duplicated(df_cancer)], 10)
 ```
 
-Cambiar el valor de la variable Status a numerico
+**Cambiar el valor de la variable Status a numerico**
 
 ```{r}
 # Si sobrevive asignamos un 1 y si se muere es un 0
@@ -318,11 +360,65 @@ unique(df_cancer$Status)
 head(df_cancer, 10)
 ```
 
-Correlación entre edad y tamaño del tumor y si sobrevive o muere
+**Conteo de variables**
+```{r}
+# Conteo para cada raza y grado
+table(df_cancer$Race, df_cancer$Grade)
+```
+Se puede apreciar que la raza blanca tiene sobretodo cáncer en grado 2
+
+```{r}
+# Conteo para cada estado marital y los meses de supervivencia
+table(df_cancer$`Marital Status`, df_cancer$Grade)
+```
+
+Se sigue apreciando que los que tienen un conteo mayor son los casados en estadio 2
+
+```{r}
+base <- df_cancer[, c("Age","Grade","Tumor Size","Regional Node Examined","Reginol Node Positive","Survival Months","Status")]
+correlacion<-round(cor(base), 1)
+corrplot(correlacion, method="number", type="upper")
+```
 
 ```{r}
 cor(df_cancer$Age, df_cancer$Status, method =
       c("pearson", "kendall", "spearman"))
 cor(df_cancer$`Tumor Size`, df_cancer$Status, method =
       c("pearson", "kendall", "spearman"))
+```
+
+```{r}
+df_cancer %>% ggplot(aes(Status, fill=Status)) + geom_bar()
+a <- df_cancer %>% ggplot(aes(Age, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+b <- df_cancer %>% ggplot(aes(Race, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+c <- df_cancer %>% ggplot(aes(`Marital Status`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+d <- df_cancer %>% ggplot(aes(`T Stage`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+e <- df_cancer %>% ggplot(aes(`N Stage`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+f <- df_cancer %>% ggplot(aes(`6th Stage`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+g <- df_cancer %>% ggplot(aes(differentiate, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+h <- df_cancer %>% ggplot(aes(Grade, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+i <- df_cancer %>% ggplot(aes(`A Stage`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+j <- df_cancer %>% ggplot(aes(`Tumor Size`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+k <- df_cancer %>% ggplot(aes(`Estrogen Status`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+l <- df_cancer %>% ggplot(aes(`Progesterone Status`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+m <- df_cancer %>% ggplot(aes(`Regional Node Examined`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+n <- df_cancer %>% ggplot(aes(`Reginol Node Positive`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+o <- df_cancer %>% ggplot(aes(`Survival Months`, fill=Status)) + geom_bar()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+grid.arrange(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o, ncol = 2, nrow=8)
 ```
