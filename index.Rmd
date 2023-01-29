@@ -294,11 +294,11 @@ getwd()
 # Generamos una lista con lo nombres de los ficheros pdf en ./papers
 
 papers <- list.files(path = "./papers", pattern = "pdf$")
-papers <-lapply(papers, paste)
+papers <- lapply(papers, paste)
 
 #Comprobamos que detectan los documentos
 
-papers <-paste("./papers/", papers, sep = "")
+papers <- paste("./papers/", papers, sep = "")
 ```
 Podemos ver la lista de documentos que se van a incorporar al corpus.
 ```{r}
@@ -328,7 +328,7 @@ Podemos visualizar los metadatos de cada documento recorriendo el corpus con un 
 
 ```{r}
 #Visualizamos los metadatos de cada uno de los documentos
-for (i in (1:length(corp))) {
+for (i in seq_along(corp)) {
   print(meta(corp[[i]]))
 }
 
@@ -385,7 +385,7 @@ corp <- tm_map(corp, removePunctuation)
 corp <- tm_map(corp, content_transformer(tolower))
 
 #Eliminamos las palabras comunes como artículo y preposiciones en inglés
-corp <- tm_map(corp, removeWords,stopwords(kind = "en"))
+corp <- tm_map(corp, removeWords, stopwords(kind = "en"))
 
 #Eliminamos espacios consecutivos
 corp <- tm_map(corp, stripWhitespace)
@@ -405,7 +405,7 @@ Presentamos el histograma de términos más frecuentes en el corpus:
 frec <- sort(colSums(as.matrix(dtm)), decreasing = TRUE)
 df <- data.frame(terminos = names(frec), ocurrencia = frec)
 
-p <- ggplot(subset(df, frec>70), aes(terminos, ocurrencia))
+p <- ggplot(subset(df, frec > 70), aes(terminos, ocurrencia))
 p <- p + scale_fill_brewer(palette = "Blues")
 p <- p + geom_bar(stat = "identity", color = "blue", fill = "white")
 p <- p + theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -428,7 +428,8 @@ El proceso es el siguiente:
 
 ```{r}
 set.seed(16)
-wordcloud(names(frec), frec, min.freq = 10, max.words = 30, colors = brewer.pal(8, "Dark2"))
+wordcloud(names(frec), frec, min.freq = 10, max.words = 30
+      , colors = brewer.pal(8, "Dark2"))
 ```
 
 
