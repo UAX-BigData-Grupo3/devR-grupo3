@@ -272,36 +272,35 @@ Se ha realizado una exploración y transformacion general de las variables oport
 #### 1 - Comenzamos con la instalación y carga de los paquetes necesarios: tm y wordcloud.
 
 ```{r}
-#install.packages("tm")
+install.packages("tm")
 library(tm)
 
-#install.packages("wordcloud")
+install.packages("wordcloud")
 library(wordcloud)
 
-#install.packages("ggplot2")
+install.packages("ggplot2")
 library(ggplot2)
 ```
 
 #### 2 - Vamos a generar un corpus con los documentos que se van a analizar y transformar:
 
-Los documentos a analizar tendrán formato PDF y deben estar en el mismo directorio desde el que se ejecuta este Notebook.
+Los documentos a analizar tendrán formato PDF y deben estar en el directorio ./papers desde el que se ejecuta este Notebook.
 
 ```{r}
 getwd()
 
-# Los documentos (pdf) deben estar en el mismo directorio de trabajo que este notebook
+#Los documentos (pdf) deben estar en el directorio ./papers
 
-# Generamos una lista con lo nombres de los ficheros pdf que están en el directorio
+# Generamos una lista con lo nombres de los ficheros pdf en ./papers
 
-papers <- list.files(path="./papers",pattern ="pdf$")
-papers <-lapply(papers,paste)
+papers <- list.files(path = "./papers", pattern = "pdf$")
+papers <-lapply(papers, paste)
 
-#Comprobamos que detecta los documentos (en este ejemplo son 4 papers científicos)
+#Comprobamos que detectan los documentos
 
-papers <-paste("./papers/",papers,sep = "")
+papers <-paste("./papers/", papers, sep = "")
 ```
 Podemos ver la lista de documentos que se van a incorporar al corpus.
-
 ```{r}
 papers
 ```
@@ -320,7 +319,7 @@ corp <- Corpus(URISource(papers),
 Mostramos el contenido del corpus y las características de cada documento:
 
 ```{r}
-#Inspeccionamos el contenido del corpus mostrando para cada documento el formato,
+#Inspeccionamos el contenido del corpus mostrando para cada documento
 #número de metadatos y el número de carácteres de cada doc
 inspect(corp)
 ```
@@ -350,11 +349,12 @@ Primero vamos a generar la mátriz del corpus **(DocumentTermMatrix)** y las est
 -   Máxima longitud o máximo número de carácteres para un término.
 
 ```{r}
-#Creamos la Mátriz de términos 
+#Creamos la Mátriz de términos
 dtm <- DocumentTermMatrix(corp)
 
 #Visualizamos las estádisticas
 dtm
+
 ```
 
 #### 4 - Vamos a transformar los documentos del corpus para realizar un mejor análisis.
@@ -382,10 +382,10 @@ corp <- tm_map(corp, removeNumbers)
 corp <- tm_map(corp, removePunctuation)
 
 #pasamos el texto a minúsculas
-corp <- tm_map(corp,content_transformer(tolower))
+corp <- tm_map(corp, content_transformer(tolower))
 
 #Eliminamos las palabras comunes como artículo y preposiciones en inglés
-corp <- tm_map(corp,removeWords,stopwords(kind = "en"))
+corp <- tm_map(corp, removeWords,stopwords(kind = "en"))
 
 #Eliminamos espacios consecutivos
 corp <- tm_map(corp, stripWhitespace)
@@ -402,13 +402,13 @@ dtm
 Presentamos el histograma de términos más frecuentes en el corpus:
 
 ```{r}
-frec <- sort(colSums(as.matrix(dtm)),decreasing=TRUE)
-df=data.frame(terminos=names(frec),ocurrencia=frec)
+frec <- sort(colSums(as.matrix(dtm)), decreasing = TRUE)
+df <- data.frame(terminos = names(frec), ocurrencia = frec)
 
-p <- ggplot(subset(df, frec>70),aes(terminos,ocurrencia))
-p <- p+scale_fill_brewer(palette="Blues")
-p <- p + geom_bar(stat="identity",color="blue", fill="white")
-p <- p + theme(axis.text.x=element_text(angle=45, hjust=1))
+p <- ggplot(subset(df, frec>70), aes(terminos, ocurrencia))
+p <- p + scale_fill_brewer(palette = "Blues")
+p <- p + geom_bar(stat = "identity", color = "blue", fill = "white")
+p <- p + theme(axis.text.x = element_text(angle = 45, hjust = 1))
 p
 ```
 
@@ -428,7 +428,7 @@ El proceso es el siguiente:
 
 ```{r}
 set.seed(16)
-wordcloud(names(frec), frec, min.freq=10, max.words = 30, colors=brewer.pal(8, "Dark2"))
+wordcloud(names(frec), frec, min.freq = 10, max.words = 30, colors = brewer.pal(8, "Dark2"))
 ```
 
 
