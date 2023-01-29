@@ -296,7 +296,7 @@ Se ha realizado una exploración y transformacion general de las variables oport
 #### 1 - Comenzamos con la instalación y carga de los paquetes necesarios: tm y wordcloud.
 
 ```{r}
-install.packages("tm", dependencies=TRUE)
+install.packages("tm")
 library(tm)
 
 install.packages("wordcloud")
@@ -620,7 +620,8 @@ plot(x = df_cancer$`Tumor Size`, y = df_cancer$Age, col = df_cancer$Status, main
 
 **Gráfico de tarta donde se muestra si el tumor se ha extendido o no**
 ```{r}
-pie(table(df_cancer$`A Stage`), main="Gráfico para la clasificación de casos según si se ha extendido")
+pie(table(df_cancer$`A Stage`), 
+    main="Gráfico para la clasificación de casos según si se ha extendido")
 ```
 
 *Conclusiones*:
