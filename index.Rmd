@@ -343,19 +343,19 @@ corp <- Corpus(URISource(papers),
 ```
 
 Mostramos el contenido del corpus y las características de cada documento:
-  
-  ```{r}
+
+```{r}
 #Inspeccionamos el contenido del corpus mostrando para cada documento
 #número de metadatos y el número de carácteres de cada doc
 inspect(corp)
 ```
 
 Podemos visualizar los metadatos de cada documento recorriendo el corpus con un bucle for:
-  
-  ```{r}
+
+```{r}
 #Visualizamos los metadatos de cada uno de los documentos
 for (i in seq_along(corp)) {
-  print(meta(corp[[i]]))
+print(meta(corp[[i]]))
 }
 
 dtm <- DocumentTermMatrix(corp)
@@ -365,8 +365,8 @@ dtm <- DocumentTermMatrix(corp)
 #### 3 - Comenzamos con el análisis de los documentos.
 
 Primero vamos a generar la mátriz del corpus **(DocumentTermMatrix)** y las estadísticas de esta:
-  
-  -   Número de documentos
+
+-   Número de documentos
 
 -   Número de términos.
 
@@ -386,8 +386,8 @@ dtm
 #### 4 - Vamos a transformar los documentos del corpus para realizar un mejor análisis.
 
 Se va a reducir el número de términos mediante el siguiente proceso:
-  
-  1.  Eliminamos los números ya que se consideran términos y no van a ser objeto del análisis.
+
+1.  Eliminamos los números ya que se consideran términos y no van a ser objeto del análisis.
 
 2.  Quitamos los signos de puntuación.
 
@@ -426,8 +426,8 @@ dtm
 ```
 
 Presentamos el histograma de términos más frecuentes en el corpus:
-  
-  ```{r}
+
+```{r}
 frec <- sort(colSums(as.matrix(dtm)), decreasing = TRUE)
 df <- data.frame(terminos = names(frec), ocurrencia = frec)
 
@@ -441,10 +441,10 @@ p
 #### 5 - Vamos a representar la nube de palabras del corpus:
 
 Para ello utilizaremos una nube de palabras generada por la librería **wordcloud**
-  
-  El proceso es el siguiente:
-  
-  1.  Calculamos para cada término de la matriz la suma total de apariciones (para todo el corpus).
+
+El proceso es el siguiente:
+
+1.  Calculamos para cada término de la matriz la suma total de apariciones (para todo el corpus).
 
 2.  Se ordena de forma de mayor a menor frecuencia.
 
@@ -552,6 +552,7 @@ table(df_cancer$`Marital Status`, df_cancer$Grade)
 Se sigue apreciando que los que tienen un conteo mayor son los casados en estadio 2
 
 **Correlacion con las variables numéricas**
+
 ```{r}
 base <- df_cancer[, c("Age", "Grade", "Tumor Size", "Regional Node Examined",
                       "Reginol Node Positive", "Survival Months", "Status")]
@@ -560,6 +561,7 @@ corrplot(correlacion, method = "number", type = "upper")
 ```
 
 **Índice de correlación para edad y tamño del tumor**
+
 ```{r}
 cor(df_cancer$Age, df_cancer$Status, method =
       c("pearson", "kendall", "spearman"))
@@ -567,7 +569,8 @@ cor(df_cancer$`Tumor Size`, df_cancer$Status, method =
       c("pearson", "kendall", "spearman"))
 ```
 
-**Visualizaciones de las distintas variables del dataset contra el estado del paciente por cada valor de las variables*
+\*\*Visualizaciones de las distintas variables del dataset contra el estado del paciente por cada valor de las variables\*
+
 ```{r}
 df_cancer$Status <- as.factor(df_cancer$Status)
 df_cancer %>% ggplot(aes(Status, fill = Status)) + geom_bar()
@@ -605,24 +608,28 @@ df_cancer %>% ggplot(aes(`Survival Months`, fill = Status)) + geom_bar() +
 ```
 
 **Boxplot donde se tamaño del tumor para cada estado**
+
 ```{r}
 ggplot(df_cancer, aes(Status, `Tumor Size`)) + geom_boxplot() +
   ylab("Tamaño del tumor") +
   ggtitle("Box Plot de tamaño del tumor para cada estado")
 ```
 
-Se observa que las que no han sobrevivo al cáncer tenían un tamaño de tumor mayor en promedio.
+Se observa que las que no han sobrevivo al cáncer tenían un tamaño de tumor 
+mayor en promedio.
 
 **Distribución según tamaño y edad para el estado de la paciente de cáncer**
+
 ```{r}
-plot(x = df_cancer$`Tumor Size`, y = df_cancer$Age, col = df_cancer$Status, main = "Estado cáncer", xlab = "Tamaño del tumor", ylab = "Edad")
+plot(x = df_cancer$`Tumor Size`, y = df_cancer$Age, col = df_cancer$Status,
+     main = "Estado cáncer", xlab = "Tamaño del tumor", ylab = "Edad")
 ```
 
 **Gráfico de tarta donde se muestra si el tumor se ha extendido o no**
+
 ```{r}
 pie(table(df_cancer$`A Stage`), 
-    main="Gráfico para la clasificación de casos según si se ha extendido")
+    main = "Gráfico para la clasificación de casos según si se ha extendido")
 ```
 
-*Conclusiones*:
-Se puede observar que la mayoría de las pacientes han sobrevivo después de tener el cáncer, aunque las que tenían el cáncer ya muy avanzado han sobrevivido pocos meses, así como las que tenían un mayor tamaño de tumor. La mayoría de los casos estudiados corresponden a mujeres blancas, casadas y con cáncer en grado 2. La mayoría tenía el cáncer poco extendido.
+*Conclusiones*: Se puede observar que la mayoría de las pacientes han sobrevivo después de tener el cáncer, aunque las que tenían el cáncer ya muy avanzado han sobrevivido pocos meses, así como las que tenían un mayor tamaño de tumor. La mayoría de los casos estudiados corresponden a mujeres blancas, casadas y con cáncer en grado 2. La mayoría tenía el cáncer poco extendido.
